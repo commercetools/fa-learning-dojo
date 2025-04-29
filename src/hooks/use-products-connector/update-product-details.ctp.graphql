@@ -1,0 +1,20 @@
+mutation UpdateProductDetails(
+  $productId: String!
+  $version: Long!
+  $actions: [ProductUpdateAction!]!
+) {
+  updateProduct(id: $productId, version: $version, actions: $actions) {
+    id
+    version
+    key
+    masterData {
+      current {
+        nameAllLocales {
+          locale
+          value
+        }
+        sku
+      }
+    }
+  }
+}
