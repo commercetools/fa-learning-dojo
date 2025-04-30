@@ -6,6 +6,7 @@ import ProductList from './components/product-list/ProductList';
 import LoadTasks from './components/load-tasks/LoadTasks';
 import SessionsOverview from './components/sessions-overview/SessionsOverview';
 import SessionPage from './components/session-page/SessionPage';
+import { useParams } from 'react-router-dom';
 
 type ApplicationRoutesProps = {
   children?: ReactNode;
@@ -30,12 +31,42 @@ const ApplicationRoutes = (_props: ApplicationRoutesProps) => {
         <Route path={`${match.path}/load-tasks`}>
           <LoadTasks />
         </Route>
+
         <Route path={`${match.path}/session1`}>
-         <SessionPage sessionId={1} />
-       </Route>
-       <Route path={`${match.path}/session2`}>  
-        <SessionPage sessionId={2} />
-      </Route>
+          <SessionPage sessionId={1} />
+        </Route>
+        <Route path={`${match.path}/session2`}>
+          <SessionPage sessionId={2} />
+        </Route>
+        
+        <Route path={`${match.path}/session3`}>
+          <SessionPage sessionId={3} />
+        </Route>
+
+{/* 
+        <Route path={`${match.path}/session4`}>
+          <SessionPage sessionId={4} />
+        </Route>
+
+        <Route path={`${match.path}/session5`}>
+          <SessionPage sessionId={5} />
+        </Route>
+
+        <Route path={`${match.path}/session6`}>
+          <SessionPage sessionId={6} />
+        </Route>
+
+        <Route path={`${match.path}/session7`}>
+          <SessionPage sessionId={7} />
+        </Route>
+
+        <Route path={`${match.path}/session8`}>
+          <SessionPage sessionId={8} />
+        </Route>
+
+        <Route path={`${match.path}/session9`}>
+          <SessionPage sessionId={9} />
+        </Route> */}
       </Switch>
     </Spacings.Inset>
   );

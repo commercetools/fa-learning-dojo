@@ -8,12 +8,13 @@ import {
 } from '@commercetools-frontend/application-shell';
 import sessionsData from '../../data/sessions.json';
 import FlatButton from '@commercetools-uikit/flat-button';
+import ParticipantsProgressTable from './ParticipantsProgressTable';
 
 // create a user agent for our HTTP client
 const userAgent = createHttpUserAgent({
   name: 'fa-course-app',
   version: '1.0.0',
-  libraryName: window.app?.applicationName || 'fa-course-app',
+  libraryName: 'fa-course-app',
   contactEmail: 'support@my-company.com',
 });
 
@@ -78,6 +79,8 @@ const LoadTasks = () => {
   return (
     <div>
       <FlatButton label="Load All Sessions" onClick={handleLoadSessions} />
+
+      <ParticipantsProgressTable />
     </div>
   );
 };

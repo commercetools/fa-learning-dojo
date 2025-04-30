@@ -15,6 +15,8 @@ import { QuizSection } from '../quiz-section/QuizSection';
 import { CaseStudies } from '../case-studies/CaseStudies';
 import { NotesEditor } from '../notes-editor/NotesEditor';
 import { SessionHeader } from './SessionHeader';
+import { KeyDecisionsCollapsible } from '../key-decisions/KeyDecisionsCollapsible';
+import QuickStartGuideHeader from '../key-decisions/QuickStartGuideHeader';
 
 function makeSafeKey(email: string): string {
   return email.trim().toLowerCase().replace(/[^a-z0-9]/g, '_');
@@ -22,7 +24,6 @@ function makeSafeKey(email: string): string {
 
 
 // --- Types ---
-
 export interface Session {
   id: number;
   title: string;
@@ -96,69 +97,24 @@ const SessionPage: React.FC<SessionPageProps> = ({ sessionId }) => {
     })),
   });
 
-  // // 1️⃣ Load or init the Custom Object
-  // useEffect(() => {
-  //   const loadProgress = async () => {
-  //     if (!projectKey) return;
-
-  //     // A) identity
-  //     const storedName = localStorage.getItem('fa-name');
-  //     const storedEmail = localStorage.getItem('fa-email');
-  //     if (!storedName || !storedEmail) {
-  //       setShowModal(true);
-  //       return;
-  //     }
-  //     setParticipant({ name: storedName, email: storedEmail });
-
-  //     const args = {
-  //       projectKey,
-  //       container: 'participants-progress',
-  //       key: storedEmail,
-  //     };
-
-  //     // B) fetch or init
-  //     let data: ParticipantProgress;
-  //     try {
-  //       const obj = await fetchCustomObject(args);
-  //       data = obj!.value!;
-  //     } catch (err: any) {
-  //       const status = err.response?.status || err.statusCode;
-  //       if (status === 404) {
-  //         // brand new participant → seed all sessions
-  //         data = buildInitialProgress();
-  //         await upsertCustomObject({ ...args, value: data });
-  //       } else {
-  //         console.error('Error loading progress:', err);
-  //         return;
-  //       }
-  //     }
-
-  //     setProgressData(data);
-  //   };
-
-  //   loadProgress();
-  // }, [projectKey]);
-
   useEffect(() => {
     const loadProgress = async () => {
 
-     
-
-
-      if (!projectKey) return;
+     if (!projectKey) return;
   
       // 1) Ensure we have a participant identity
       const storedEmail = localStorage.getItem('fa-email')!;
-      const safeKey = makeSafeKey(storedEmail);
+      
       const storedName = localStorage.getItem('fa-name');
-      setParticipant({ name: storedName, email: storedEmail, key: safeKey });
+
+
+      if (!storedEmail || !storedName) {
+         setShowModal(true);
+                return;
+        }
      
-      // const storedEmail = localStorage.getItem('fa-email');
-      if (!storedName || !storedEmail) {
-        setShowModal(true);
-        return;
-      }
-      setParticipant({ name: storedName, email: storedEmail, key:safeKey });
+      const safeKey = makeSafeKey(storedEmail);
+      setParticipant({ name: storedName, email: storedEmail, key: safeKey });
   
       const args = {
         projectKey,
@@ -266,16 +222,20 @@ const SessionPage: React.FC<SessionPageProps> = ({ sessionId }) => {
   // 6️⃣ Render everything
   return (
     <div>
-      <SessionHeader session={session} participant={participant} />
 
+    <GlobalProgressBar
+            masterSessions={allSessions}
+            participantProgress={progressData}
+            participant={participant}
+          />
+
+      <SessionHeader session={session} participant={participant} />
+      <SessionOverview overview={session.overview} />
       {/* overall progress */}
-      <GlobalProgressBar
-        masterSessions={allSessions}
-        participantProgress={progressData}
-      />
+      
 
       {/* this session’s bar */}
-      <ProgressBarComponent
+      {/* <ProgressBarComponent
         totalDecisions={session.keyDecisions.length}
         completedDecisions={current.keyDecisions.filter(
           (kd) => kd.status === 'Completed'
@@ -285,28 +245,40 @@ const SessionPage: React.FC<SessionPageProps> = ({ sessionId }) => {
         completedCaseStudies={current.case_studies.filter(
           (cs) => cs.status === 'Completed'
         ).length}
-      />
+      /> */}
 
       <Spacings.Stack scale="l">
-        <SessionOverview overview={session.overview} />
+       
 
-        <KeyDecisions
+
+        {/* <KeyDecisions
           items={current.keyDecisions}
           onSubmit={async (decisionId, idx) => {
-            // update nested fields
-            const kd = current.keyDecisions.find(
-              (d) => d.decisionId === decisionId
-            )!;
+            // 1) Update the key‐decision status, selection & feedback:
+            const kd = current.keyDecisions.find((d) => d.decisionId === decisionId)!;
             kd.status = 'Completed';
             kd.selectedOptionIndex = idx;
             kd.feedback = kd.options[idx].feedback;
 
+            // 2) Append to this session’s notes:
+            const noteEntry = [
+              `📝 Decision ${decisionId}: ${kd.scenario}`,
+              `• Selected: ${kd.options[idx].text}`,
+              `• Feedback: ${kd.feedback}`,
+            ].join('\n') + '\n';
+
+            // Merge with any existing notes
+            current.notes = (current.notes || '') + noteEntry;
+
+            // 3) Persist the updated progressData (with new notes)
             await upsertCustomObject({
               projectKey,
               container: 'participants-progress',
-              key: participant!.email,
+              key: participant!.key,
               value: progressData!,
             });
+
+            // 4) Refresh local state
             setProgressData({ ...progressData! });
           }}
           onReSubmit={(decisionId) => {
@@ -318,8 +290,47 @@ const SessionPage: React.FC<SessionPageProps> = ({ sessionId }) => {
             delete kd.feedback;
             setProgressData({ ...progressData! });
           }}
-        />
+        /> */}
 
+      <KeyDecisionsCollapsible
+        items={current.keyDecisions}
+        onSubmit={async (decisionId, idx) => {
+          // 1) Update your state
+          const kd = current.keyDecisions.find((d) => d.decisionId === decisionId)!;
+          kd.status = 'Completed';
+          kd.selectedOptionIndex = idx;
+          kd.feedback = kd.options[idx].feedback;
+
+          // 2) Append to notes as before (optional)
+          const noteEntry = [
+            `📝 Decision ${decisionId}: ${kd.scenario}`,
+            `• Selected: ${kd.options[idx].text}`,
+            `• Feedback: ${kd.feedback}`,
+          ].join('\n') + '\n\n';
+          current.notes = (current.notes || '') + noteEntry;
+
+          // 3) Persist
+          await upsertCustomObject({
+            projectKey,
+            container: 'participants-progress',
+            key: participant.key,
+            value: progressData,
+          });
+          // 4) Rerender
+          setProgressData({ ...progressData });
+        }}
+        onReSubmit={(decisionId) => {
+          const kd = current.keyDecisions.find((d) => d.decisionId === decisionId)!;
+          kd.status = 'Not Started';
+          delete kd.selectedOptionIndex;
+          delete kd.feedback;
+          setProgressData({ ...progressData });
+        }}
+      />
+
+<QuickStartGuideHeader
+              content="Session Quiz"
+              />
         <QuizSection
           link={session.quiz}
           status={current.quizStatus}
@@ -328,12 +339,16 @@ const SessionPage: React.FC<SessionPageProps> = ({ sessionId }) => {
             await upsertCustomObject({
               projectKey,
               container: 'participants-progress',
-              key: participant!.email,
+              key: participant!.key,
               value: progressData!,
             });
             setProgressData({ ...progressData! });
           }}
         />
+
+      <QuickStartGuideHeader
+              content="Case Exercises"
+              />
 
         <CaseStudies
           items={current.case_studies}
@@ -342,7 +357,7 @@ const SessionPage: React.FC<SessionPageProps> = ({ sessionId }) => {
             await upsertCustomObject({
               projectKey,
               container: 'participants-progress',
-              key: participant!.email,
+              key: participant!.key,
               value: progressData!,
             });
             setProgressData({ ...progressData! });
@@ -356,7 +371,7 @@ const SessionPage: React.FC<SessionPageProps> = ({ sessionId }) => {
             await upsertCustomObject({
               projectKey,
               container: 'participants-progress',
-              key: participant!.email,
+              key: participant!.key,
               value: progressData!,
             });
             setProgressData({ ...progressData! });
@@ -368,3 +383,5 @@ const SessionPage: React.FC<SessionPageProps> = ({ sessionId }) => {
 };
 
 export default SessionPage;
+
+

@@ -5,6 +5,7 @@ import Spacings from '@commercetools-uikit/spacings';
 interface SessionHeaderProps {
   session: {
     title: string;
+    id: number
   };
   participant: {
     name: string | null
@@ -15,7 +16,10 @@ interface SessionHeaderProps {
 
 export const SessionHeader: React.FC<SessionHeaderProps> = ({ session, participant }) => (
   <Spacings.Inset scale="l">
-    <h2>{session.title}</h2>
-    <div>👋 Hello, {participant.name}!</div>
+    
+    {/* <div>👋 Hello, {participant.name}!</div> */}
+
+    <h2>Session {session.id} - {session.title}</h2>
+
   </Spacings.Inset>
 );
