@@ -1,7 +1,7 @@
 import axios from 'axios';
 import createHttpUserAgent from '@commercetools/http-user-agent';
 import { buildApiUrl, executeHttpClientRequest } from '@commercetools-frontend/application-shell';
-import { ParticipantsProgressTable } from '../components/load-tasks/ParticipantsProgressTable';
+import { ParticipantsProgressTable } from '../components/trainer-dashboard/ParticipantsProgressTable';
 
 const projectKey = process.env.REACT_APP_CT_PROJECT_KEY!;
 const userAgent = createHttpUserAgent({ name: 'fa-course-app-client', version: '1.0.0', libraryName: window.app?.applicationName || 'fa-course-app', contactEmail: 'support@my-company.com' });

@@ -1,4 +1,4 @@
-// src/components/load-tasks/LoadTasks.tsx
+// src/components/load-tasks/TrainerDashboard.tsx
 import React from 'react';
 import axios from 'axios';
 import createHttpUserAgent from '@commercetools/http-user-agent';
@@ -56,7 +56,7 @@ const upsertCustomObject = async (
   return result.data;
 };
 
-const LoadTasks = () => {
+const TrainerDashboard = () => {
   const handleLoadSessions = async () => {
     try {
       // sessionsData is the full object { sessions: [...] }
@@ -85,4 +85,4 @@ const LoadTasks = () => {
   );
 };
 
-export default LoadTasks;
+export default TrainerDashboard;

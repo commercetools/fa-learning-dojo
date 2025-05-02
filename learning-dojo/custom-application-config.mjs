@@ -4,21 +4,21 @@ import { PERMISSIONS, entryPointUriPath } from './src/constants';
  * @type {import('@commercetools-frontend/application-config').ConfigOptionsForCustomApplication}
  */
 const config = {
-  name: 'Starter Typescript 1e164f',
-  entryPointUriPath,
+  name: 'learning-dojo',
+  entryPointUriPath: '${env:ENTRY_POINT_URI_PATH}',
   cloudIdentifier: 'gcp-eu',
   env: {
     development: {
       initialProjectKey: 'ecoliving-home-lifestyle-dryrun-0424',
     },
     production: {
-      applicationId: 'TODO',
-      url: 'https://your_app_hostname.com',
+      applicationId: '${env:CUSTOM_APPLICATION_ID}',
+      url: '${env:APPLICATION_URL}',
     },
   },
   oAuthScopes: {
-    view: ['view_products'],
-    manage: ['manage_project'],
+    view: ['view_key_value_documents'],
+    manage: ['manage_key_value_documents'],
   },
   icon: '${path:@commercetools-frontend/assets/application-icons/rocket.svg}',
   mainMenuLink: {
@@ -28,23 +28,23 @@ const config = {
   },
   submenuLinks: [
     {
-      uriPath: 'load-tasks', // Must match your route path
-      defaultLabel: 'Training Progress (Only Visible to Trainer))',
+      uriPath: 'trainer-dashboard', 
+      defaultLabel: 'Trainer Dashboard (Only Visible to Trainer))',
       labelAllLocales: [],
       permissions: [PERMISSIONS.Manage],
     },
     {
-      uriPath: 'session1', // match your route
+      uriPath: 'session1', 
       defaultLabel: '1 - Composable Commerce Essentials',
       permissions: [PERMISSIONS.Manage],
     },
     {
-      uriPath: 'session2', // match your route
+      uriPath: 'session2', 
       defaultLabel: '2 - Product Modeling & Configuration',
       permissions: [PERMISSIONS.Manage],
     },
     {
-      uriPath: 'session3', // match your route
+      uriPath: 'session3', 
       defaultLabel: '3 - Advanced Product Modeling',
       permissions: [PERMISSIONS.Manage],
     },

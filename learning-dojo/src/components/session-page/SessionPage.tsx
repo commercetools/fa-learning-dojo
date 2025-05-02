@@ -17,6 +17,7 @@ import { NotesEditor } from '../notes-editor/NotesEditor';
 import { SessionHeader } from './SessionHeader';
 import { KeyDecisionsCollapsible } from '../key-decisions/KeyDecisionsCollapsible';
 import QuickStartGuideHeader from '../key-decisions/QuickStartGuideHeader';
+import IconCard from '../icon-card/icon-card';
 
 function makeSafeKey(email: string): string {
   return email.trim().toLowerCase().replace(/[^a-z0-9]/g, '_');
@@ -331,6 +332,8 @@ const SessionPage: React.FC<SessionPageProps> = ({ sessionId }) => {
 <QuickStartGuideHeader
               content="Session Quiz"
               />
+
+         
         <QuizSection
           link={session.quiz}
           status={current.quizStatus}

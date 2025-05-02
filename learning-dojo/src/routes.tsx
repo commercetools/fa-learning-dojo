@@ -3,10 +3,11 @@ import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import Spacings from '@commercetools-uikit/spacings';
 import Channels from './components/channels';
 import ProductList from './components/product-list/ProductList';
-import LoadTasks from './components/load-tasks/LoadTasks';
+import LoadTasks from './components/trainer-dashboard/TrainerDashboard';
 import SessionsOverview from './components/sessions-overview/SessionsOverview';
 import SessionPage from './components/session-page/SessionPage';
 import { useParams } from 'react-router-dom';
+import TrainerDashboard from './components/trainer-dashboard/TrainerDashboard';
 
 type ApplicationRoutesProps = {
   children?: ReactNode;
@@ -28,8 +29,8 @@ const ApplicationRoutes = (_props: ApplicationRoutesProps) => {
   return (
     <Spacings.Inset scale="l">
       <Switch>
-        <Route path={`${match.path}/load-tasks`}>
-          <LoadTasks />
+        <Route path={`${match.path}/trainer-dashboard`}>
+          <TrainerDashboard />
         </Route>
 
         <Route path={`${match.path}/session1`}>
