@@ -1,45 +1,23 @@
-// src/components/session-page/SessionPage.tsx
+import { css, Global } from '@emotion/react';
+import { designTokens, Grid, SecondaryButton, Card, Text } from '@commercetools-frontend/ui-kit';
 import React, { useEffect, useState } from 'react';
-import { FormDialog } from '@commercetools-frontend/application-components';
-import { TextField, Spacings } from '@commercetools-frontend/ui-kit';
 import { useApplicationContext } from '@commercetools-frontend/application-shell-connectors';
-
+import { Spacings } from '@commercetools-frontend/ui-kit';
+import DOMPurify from 'dompurify';
+import { ReviewIcon } from '@commercetools-frontend/ui-kit';
 import { fetchCustomObject, upsertCustomObject } from '../../api/customObjects';
 import sessionsJson from '../../data/sessions.json';
 
 import { GlobalProgressBar } from '../global-progress-bar/GlobalProgressBar';
-import { ProgressBarComponent } from '../progress-bar/ProgressBar';
-import { SessionOverview } from './SessionOverview';
-import { KeyDecisions } from '../key-decisions/KeyDecisions';
-import { QuizSection } from '../quiz-section/QuizSection';
-import { CaseStudies } from '../case-studies/CaseStudies';
-import { NotesEditor } from '../notes-editor/NotesEditor';
-import { SessionHeader } from './SessionHeader';
+import RichNotesEditor from '../notes-editor/RichNotesEditor';
 import { KeyDecisionsCollapsible } from '../key-decisions/KeyDecisionsCollapsible';
-import QuickStartGuideHeader from '../key-decisions/QuickStartGuideHeader';
-import IconCard from '../icon-card/icon-card';
+import { SessionHeader } from './SessionHeader';
+import ResourceCard, { DescriptionBlock } from '../icon-card/ResourceCard';
 
-function makeSafeKey(email: string): string {
-  return email.trim().toLowerCase().replace(/[^a-z0-9]/g, '_');
-}
-
-
-// --- Types ---
-export interface Session {
-  id: number;
-  title: string;
-  overview: string;
-  keyDecisions: Array<{
-    decisionId: number;
-    title: string;
-    scenario: string;
-    options: Array<{ text: string; isCorrect: boolean; feedback: string }>;
-  }>;
-  quiz: string;
-  case_studies: Array<{ title: string; link: string }>;
-}
-
-export interface SessionProgress extends Omit<Session, 'keyDecisions' | 'case_studies'> {
+// — Types ——————————————————————————————————————————————————————
+export type Session = (typeof sessionsJson.sessions)[0];
+export interface SessionProgress
+  extends Omit<Session, 'keyDecisions' | 'case_studies'> {
   quizStatus: 'Not Started' | 'Completed';
   notes: string;
   keyDecisions: Array<
@@ -50,341 +28,284 @@ export interface SessionProgress extends Omit<Session, 'keyDecisions' | 'case_st
     }
   >;
   case_studies: Array<
-    Session['case_studies'][0] & {
-      status: 'Not Started' | 'Completed';
-    }
+    Session['case_studies'][0] & { status: 'Not Started' | 'Completed' }
   >;
 }
-
 export interface ParticipantProgress {
   participantProgressData: SessionProgress[];
 }
 
-export interface SessionPageProps {
-  sessionId: number;
-}
+// — Helpers ————————————————————————————————————————————————————
+const makeSafeKey = (email: string) =>
+  email
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, '_');
 
-// --- Component ---
+const buildInitialProgress = (all: Session[]): ParticipantProgress => ({
+  participantProgressData: all.map((s) => ({
+    ...s,
+    quizStatus: 'Not Started',
+    notes: '',
+    keyDecisions: s.keyDecisions.map((kd) => ({
+      ...kd,
+      status: 'Not Started',
+    })),
+    case_studies: s.case_studies.map((cs) => ({
+      ...cs,
+      status: 'Not Started',
+    })),
+  })),
+});
 
-const SessionPage: React.FC<SessionPageProps> = ({ sessionId }) => {
+const makeNoteEntryHtml = (
+  decisionId: number,
+  scenario: string,
+  selected: string,
+  feedback: string
+) => `
+  <div class="note-entry" style="margin-bottom:20px; padding:0.5rem; border:1px solid #eee;">
+      <h2>📝 Decision ${decisionId}:</h2>
+      <div>${scenario}</div>
+      <div>• <strong>Selected:</strong> ${selected}</div>
+      <div>• <strong>Feedback:</strong> ${feedback}</div>
+  </div>
+`;
+
+// — Component —————————————————————————————————————————————————————
+const SessionPage: React.FC<{ sessionId: number }> = ({ sessionId }) => {
+  // 📌 Hooks must all go before any early return
   const projectKey = useApplicationContext((ctx) => ctx.project!.key)!;
-  const allSessions: Session[] = sessionsJson.sessions;
-  const session = allSessions.find((s) => s.id === sessionId)!;
-
-  const [participant, setParticipant] =
-    useState<{ name: string | null ; email: string, key: string } | null>(null);
-  const [showModal, setShowModal] = useState(false);
-  const [nameInput, setNameInput] = useState('');
-  const [emailInput, setEmailInput] = useState('');
-
+  const userEmail = useApplicationContext((ctx) => ctx.user?.email) || '';
   const [progressData, setProgressData] = useState<ParticipantProgress | null>(
     null
   );
+  const [localNotes, setLocalNotes] = useState<string>('');
 
-  // Utility to make a fresh SessionProgress for *all* sessions:
-  const buildInitialProgress = (): ParticipantProgress => ({
-    participantProgressData: allSessions.map((s) => ({
-      ...s,
-      quizStatus: 'Not Started' as const,
-      notes: '',
-      keyDecisions: s.keyDecisions.map((kd) => ({
-        ...kd,
-        status: 'Not Started' as const,
-      })),
-      case_studies: s.case_studies.map((cs) => ({
-        ...cs,
-        status: 'Not Started' as const,
-      })),
-    })),
-  });
+  const allSessions = sessionsJson.sessions as Session[];
+  const session = allSessions.find((s) => s.id === sessionId)!;
+  const participantKey = makeSafeKey(userEmail);
 
+  // 1️⃣ Load (or seed) custom‐object exactly once
   useEffect(() => {
-    const loadProgress = async () => {
-
-     if (!projectKey) return;
-  
-      // 1) Ensure we have a participant identity
-      const storedEmail = localStorage.getItem('fa-email')!;
-      
-      const storedName = localStorage.getItem('fa-name');
-
-
-      if (!storedEmail || !storedName) {
-         setShowModal(true);
-                return;
-        }
-     
-      const safeKey = makeSafeKey(storedEmail);
-      setParticipant({ name: storedName, email: storedEmail, key: safeKey });
-  
-      const args = {
-        projectKey,
-        container: 'participants-progress',
-        key: safeKey,
-      };
-  
-      let fetchedObj: { value?: ParticipantProgress } | null = null;
+    if (!projectKey || !userEmail) return;
+    (async () => {
       try {
-        // 2) Try fetching the existing Custom Object
-        fetchedObj = await fetchCustomObject(args);
+        const fetched = await fetchCustomObject<ParticipantProgress>({
+          projectKey,
+          container: 'participants-progress',
+          key: participantKey,
+        });
+        setProgressData(fetched.value);
       } catch (err: any) {
         const status = err.response?.status || err.statusCode;
-        // 3) Only on 404 do we seed new data
         if (status === 404) {
-          const initial = buildInitialProgress();
-          await upsertCustomObject({ ...args, value: initial });
+          const initial = buildInitialProgress(allSessions);
+          await upsertCustomObject({
+            projectKey,
+            container: 'participants-progress',
+            key: participantKey,
+            value: initial,
+          });
           setProgressData(initial);
-          return;
         } else {
           console.error('Error loading progress:', err);
-          return;
         }
       }
-  
-      // 4) If fetch succeeded but we got no .value, treat as missing
-      if (!fetchedObj || fetchedObj.value == null) {
-        const initial = buildInitialProgress();
-        await upsertCustomObject({ ...args, value: initial });
-        setProgressData(initial);
-        return;
-      }
-  
-      // 5) 🎉 We have a real value—use it!
-      setProgressData(fetchedObj.value);
-    };
-  
-    loadProgress();
-  }, [projectKey]);
-  
-  
-  
+    })();
+  }, [projectKey, userEmail]);
 
-  // 2️⃣ Handle first-time registration
-  const handleModalSubmit = async () => {
-    if (!projectKey) return;
-    setShowModal(false);
-    localStorage.setItem('fa-name', nameInput);
-    localStorage.setItem('fa-email', emailInput);
-    setParticipant({ name: nameInput, email: emailInput, key: '' });
+  // 2️⃣ Whenever we finally get fresh progressData, sync our notes-editor
+  useEffect(() => {
+    if (!progressData) return;
+    const current = progressData.participantProgressData.find(
+      (p) => p.id === sessionId
+    )!;
+    setLocalNotes(current.notes);
+  }, [progressData, sessionId]);
 
-    const initial = buildInitialProgress();
-    try {
-      await upsertCustomObject({
-        projectKey,
-        container: 'participants-progress',
-        key: participant!.key,
-        value: initial,
-      });
-      setProgressData(initial);
-    } catch (err) {
-      console.error('Error creating participant object:', err);
-    }
-  };
-
-  // 3️⃣ Show the name/email dialog once
-  if (showModal) {
-    return (
-      <FormDialog
-        isOpen={showModal}
-        title="👋 Welcome! Enter your details"
-        labelPrimary="Submit"
-        onPrimaryButtonClick={handleModalSubmit}
-        labelSecondary="Cancel"
-        onSecondaryButtonClick={() => setShowModal(false)}
-      >
-        <Spacings.Stack scale="m">
-          <TextField
-            name="firstName"
-            title="First Name"
-            value={nameInput}
-            onChange={(e) => setNameInput(e.target.value)}
-          />
-          <TextField
-            name="email"
-            title="Email"
-            value={emailInput}
-            onChange={(e) => setEmailInput(e.target.value)}
-          />
-        </Spacings.Stack>
-      </FormDialog>
-    );
-  }
-
-  // 4️⃣ Still loading?
-  if (!participant || !progressData) {
+  // 3️⃣ Early‐return while loading
+  if (!progressData) {
     return <div>Loading your session…</div>;
   }
 
-  // 5️⃣ Grab the record for this session
+  // 4️⃣ Grab just this session’s progress record
   const current = progressData.participantProgressData.find(
     (p) => p.id === sessionId
   )!;
 
-  // 6️⃣ Render everything
+  // 5️⃣ A helper to persist the entire envelope
+  const persist = async (updated: ParticipantProgress) => {
+    await upsertCustomObject({
+      projectKey,
+      container: 'participants-progress',
+      key: participantKey,
+      value: updated,
+    });
+    setProgressData({ ...updated });
+  };
+
   return (
-    <div>
-
-    <GlobalProgressBar
-            masterSessions={allSessions}
-            participantProgress={progressData}
-            participant={participant}
-          />
-
-      <SessionHeader session={session} participant={participant} />
-      <SessionOverview overview={session.overview} />
-      {/* overall progress */}
-      
-
-      {/* this session’s bar */}
-      {/* <ProgressBarComponent
-        totalDecisions={session.keyDecisions.length}
-        completedDecisions={current.keyDecisions.filter(
-          (kd) => kd.status === 'Completed'
-        ).length}
-        quizStatus={current.quizStatus}
-        caseStudiesCount={session.case_studies.length}
-        completedCaseStudies={current.case_studies.filter(
-          (cs) => cs.status === 'Completed'
-        ).length}
-      /> */}
-
-      <Spacings.Stack scale="l">
-       
-
-
-        {/* <KeyDecisions
-          items={current.keyDecisions}
-          onSubmit={async (decisionId, idx) => {
-            // 1) Update the key‐decision status, selection & feedback:
-            const kd = current.keyDecisions.find((d) => d.decisionId === decisionId)!;
-            kd.status = 'Completed';
-            kd.selectedOptionIndex = idx;
-            kd.feedback = kd.options[idx].feedback;
-
-            // 2) Append to this session’s notes:
-            const noteEntry = [
-              `📝 Decision ${decisionId}: ${kd.scenario}`,
-              `• Selected: ${kd.options[idx].text}`,
-              `• Feedback: ${kd.feedback}`,
-            ].join('\n') + '\n';
-
-            // Merge with any existing notes
-            current.notes = (current.notes || '') + noteEntry;
-
-            // 3) Persist the updated progressData (with new notes)
-            await upsertCustomObject({
-              projectKey,
-              container: 'participants-progress',
-              key: participant!.key,
-              value: progressData!,
-            });
-
-            // 4) Refresh local state
-            setProgressData({ ...progressData! });
-          }}
-          onReSubmit={(decisionId) => {
-            const kd = current.keyDecisions.find(
-              (d) => d.decisionId === decisionId
-            )!;
-            kd.status = 'Not Started';
-            delete kd.selectedOptionIndex;
-            delete kd.feedback;
-            setProgressData({ ...progressData! });
-          }}
-        /> */}
-
-      <KeyDecisionsCollapsible
-        items={current.keyDecisions}
-        onSubmit={async (decisionId, idx) => {
-          // 1) Update your state
-          const kd = current.keyDecisions.find((d) => d.decisionId === decisionId)!;
-          kd.status = 'Completed';
-          kd.selectedOptionIndex = idx;
-          kd.feedback = kd.options[idx].feedback;
-
-          // 2) Append to notes as before (optional)
-          const noteEntry = [
-            `📝 Decision ${decisionId}: ${kd.scenario}`,
-            `• Selected: ${kd.options[idx].text}`,
-            `• Feedback: ${kd.feedback}`,
-          ].join('\n') + '\n\n';
-          current.notes = (current.notes || '') + noteEntry;
-
-          // 3) Persist
-          await upsertCustomObject({
-            projectKey,
-            container: 'participants-progress',
-            key: participant.key,
-            value: progressData,
-          });
-          // 4) Rerender
-          setProgressData({ ...progressData });
-        }}
-        onReSubmit={(decisionId) => {
-          const kd = current.keyDecisions.find((d) => d.decisionId === decisionId)!;
-          kd.status = 'Not Started';
-          delete kd.selectedOptionIndex;
-          delete kd.feedback;
-          setProgressData({ ...progressData });
-        }}
+    <Spacings.Stack scale="xl">
+      {/* 1️⃣ Global progress bar (row 1) */}
+      <GlobalProgressBar
+        masterSessions={allSessions}
+        participantProgress={progressData}
       />
 
-<QuickStartGuideHeader
-              content="Session Quiz"
-              />
+      {/* 2️⃣ Session title */}
+      <Text.Headline as="h2">Session {session.id}: {session.title}</Text.Headline>
 
-         
-        <QuizSection
-          link={session.quiz}
-          status={current.quizStatus}
-          onDone={async () => {
-            current.quizStatus = 'Completed';
-            await upsertCustomObject({
-              projectKey,
-              container: 'participants-progress',
-              key: participant!.key,
-              value: progressData!,
-            });
-            setProgressData({ ...progressData! });
-          }}
+      {/* 3️⃣ Two-column layout */}
+      <Grid
+        gridTemplateColumns="60% 40%"
+        gridColumnGap={designTokens.spacingL}
+        gridRowGap={designTokens.spacingL} 
+      >
+        {/* Left: Key Decisions */}
+        <Card insetScale="m">
+          <KeyDecisionsCollapsible
+            items={current.keyDecisions}
+            onSubmit={async (decisionId, idx) => {
+                      const kd = current.keyDecisions.find(
+                        (d) => d.decisionId === decisionId
+                      )!;
+                      kd.status = 'Completed';
+                      kd.selectedOptionIndex = idx;
+                      kd.feedback = kd.options[idx].feedback!;
+            
+                      // strip old block for this decision
+                      current.notes = current.notes
+                        .replace(
+                          new RegExp(
+                            `(<hr/?>)?[\\s\\S]*?Decision ${decisionId}:[\\s\\S]*?<\\/div>`,
+                            'g'
+                          ),
+                          ''
+                        )
+                        .trim();
+            
+                      // append new
+                      const entry = makeNoteEntryHtml(
+                        decisionId,
+                        kd.scenario,
+                        kd.options[idx].text,
+                        kd.feedback
+                      );
+                      current.notes = current.notes
+                        ? `${current.notes}<hr/>${entry}`
+                        : entry;
+            
+                      await persist(progressData);
+                    }}
+                    onReSubmit={async (decisionId) => {
+                      // 1️⃣ Split into blocks by your <hr/> divider
+                      const parts = current.notes.split(/<hr\/?>/);
+            
+                      // 2️⃣ Filter out the one whose text includes “Decision X:”
+                      const filtered = parts
+                        .map((p) => p.trim())
+                        .filter((p) => p && !p.includes(`Decision ${decisionId}:`));
+            
+                      // 3️⃣ Re-join, re-inserting <hr/> between each block
+                      current.notes = filtered
+                        .map((blockHtml, i) => (i > 0 ? `<hr/>${blockHtml}` : blockHtml))
+                        .join('');
+            
+                      // 4️⃣ Reset the decision state
+                      const kd = current.keyDecisions.find(
+                        (d) => d.decisionId === decisionId
+                      )!;
+                      kd.status = 'Not Started';
+                      delete kd.selectedOptionIndex;
+                      delete kd.feedback;
+            
+                      // 5️⃣ Persist it
+                      await persist(progressData);
+                    }}
+          />
+        </Card>
+
+        {/* Right: Quiz + Case Studies */}
+        <Spacings.Stack scale="m">
+          <Card insetScale="m">
+            <Text.Headline as="h2">Quiz</Text.Headline>
+            <ResourceCard
+              icon={<ReviewIcon size="30" />}
+              header={session.title + ' Quiz'}
+              link={session.quiz}
+              status={current.quizStatus}
+              onDone={async () => {
+                        current.quizStatus = 'Completed';
+                        await persist(progressData);
+                      }}
+            />
+          </Card>
+          <Card insetScale="m">
+          <Text.Headline as="h2">Case Exercises</Text.Headline>
+            {current.case_studies.map((cs, idx) => {
+              const orig = session.case_studies.find((c) => c.title === cs.title);
+              return (
+                <ResourceCard
+                      icon={<ReviewIcon size="30" color="primary" />}
+                      header={session.case_studies[0].title}
+                      link={session.quiz}
+                      status={current.quizStatus}
+                      onDone={async () => {
+                        current.quizStatus = 'Completed';
+                        await persist(progressData);
+                      }}
+                    />
+              );
+            })}
+          </Card>
+        </Spacings.Stack>
+      </Grid>
+
+      {/* 4️⃣ Notes editor */}
+      <Spacings.Stack scale="l">
+        <Text.Headline as="h1">Your Notes</Text.Headline>
+        <RichNotesEditor
+          value={localNotes}
+          onChange={(html) => setLocalNotes(html)}
         />
+        <Spacings.Stack scale="l">
+        <Spacings.Inline scale="xs">
+          <SecondaryButton
+            label="Save Notes"
+            onClick={async () => {
+              const clean = DOMPurify.sanitize(localNotes, {
+                USE_PROFILES: { html: true },
+              });
+              current.notes = clean;
+              await persist(progressData);
+            }}
+          />
+        </Spacings.Inline>
 
-      <QuickStartGuideHeader
-              content="Case Exercises"
-              />
-
-        <CaseStudies
-          items={current.case_studies}
-          onUpdate={async (idx) => {
-            current.case_studies[idx].status = 'Completed';
-            await upsertCustomObject({
-              projectKey,
-              container: 'participants-progress',
-              key: participant!.key,
-              value: progressData!,
-            });
-            setProgressData({ ...progressData! });
-          }}
-        />
-
-        <NotesEditor
-          notes={current.notes}
-          onSave={async (newNotes) => {
-            current.notes = newNotes;
-            await upsertCustomObject({
-              projectKey,
-              container: 'participants-progress',
-              key: participant!.key,
-              value: progressData!,
-            });
-            setProgressData({ ...progressData! });
-          }}
-        />
+        </Spacings.Stack>
+        
       </Spacings.Stack>
-    </div>
+
+      {/* some global CSS tweaks */}
+      <Global
+        styles={css`
+          .note-entry {
+            margin-bottom: ${designTokens.spacingL};
+            padding: ${designTokens.spacingM};
+            border: 1px solid ${designTokens.colorNeutral60};
+            border-radius: ${designTokens.borderRadius1};
+          }
+          hr {
+            border: none;
+            border-top: 1px solid ${designTokens.colorNeutral60};
+            margin: ${designTokens.spacingL} 0;
+          }
+        `}
+      />
+
+    </Spacings.Stack>
   );
 };
 
 export default SessionPage;
-
-

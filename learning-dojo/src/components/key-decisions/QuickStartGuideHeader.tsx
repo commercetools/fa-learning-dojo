@@ -51,7 +51,7 @@ const QuickStartGuideHeader = ({
           padding: ${designTokens.spacingL};
         `}
       >
-        <Spacings.Inline scale="s" alignItems="center">
+        <Spacings.Inline scale="xs" alignItems="center">
           <div
             css={css`
               div {

@@ -1,87 +1,140 @@
+
+
+
 import axios from 'axios';
+import { buildApiUrl } from '@commercetools-frontend/application-shell';
 import createHttpUserAgent from '@commercetools/http-user-agent';
-import { buildApiUrl, executeHttpClientRequest } from '@commercetools-frontend/application-shell';
-import { ParticipantsProgressTable } from '../components/trainer-dashboard/ParticipantsProgressTable';
+import { executeHttpClientRequest } from '@commercetools-frontend/application-shell';
 
-const projectKey = process.env.REACT_APP_CT_PROJECT_KEY!;
-const userAgent = createHttpUserAgent({ name: 'fa-course-app-client', version: '1.0.0', libraryName: window.app?.applicationName || 'fa-course-app', contactEmail: 'support@my-company.com' });
+// Build a UA string for Sentry / CT proxy logs:
+const userAgent = createHttpUserAgent({
+  name: 'fa-learning-dojo',
+  version: '1.0.0',
+  libraryName: 'learning-dojo',
+  contactEmail: 'support@your-company.com',
+});
 
-export const fetchCustomObject = async ({
-  projectKey,
-  container,
-  key,
-}: {
-  projectKey: string;
+/**
+ * Mirrors the CT CustomObject<T> resource schema.
+ */
+export type CustomObject<T> = {
+  id: string;
+  version: number;
+  createdAt: string;
+  lastModifiedAt: string;
   container: string;
   key: string;
-}) => {
-  const response = await executeHttpClientRequest(
-    async (options) => {
-      const res = await axios(
-        buildApiUrl(
-          `/proxy/ctp/${projectKey}/custom-objects/${container}/${key}`
-        ),
-        { method: 'GET', headers: options.headers, withCredentials: options.credentials === 'include' }
-      );
-      return { data: res.data, statusCode: res.status, getHeader: (h) => res.headers[h] };
-    },
-    { userAgent }
-  );
-  return response.data;
+  value: T;
 };
 
-export const upsertCustomObject = async ({
-  projectKey,
-  container,
-  key,
-  value,
-}: {
+/**
+ * Fetches the CustomObject envelope for {container, key}.
+ * Throws if 404, so callers can catch & seed.
+ */
+export async function fetchCustomObject<T>(opts: {
   projectKey: string;
   container: string;
   key: string;
-  value: unknown;
-}) => {
-  const draft = { container, key, value };
+}): Promise<CustomObject<T>> {
+  const { projectKey, container, key } = opts;
   const response = await executeHttpClientRequest(
     async (options) => {
-      const res = await axios(
-        buildApiUrl(`/proxy/ctp/${projectKey}/custom-objects`),
+      const res = await axios.get<CustomObject<T>>(
+        buildApiUrl(`/proxy/ctp/${projectKey}/custom-objects/${container}/${key}`),
         {
-          method: 'POST',
-          data: draft,
-          headers: {
-            ...options.headers,
-            'Content-Type': 'application/json',
-            'X-Project-Key': projectKey,
-          },
+          headers: options.headers,
           withCredentials: options.credentials === 'include',
         }
       );
-      return { data: res.data, statusCode: res.status, getHeader: (h) => res.headers[h] };
+      return {
+        data: res.data,
+        statusCode: res.status,
+        getHeader: (h: string) => res.headers[h],
+      };
     },
     { userAgent }
   );
-  return response.data;
-};
+  // response.data is already a CustomObject<T>
+  return response;
+}
 
-export const fetchCustomObjectsByContainer = async ({
-  projectKey,
-  container,
-}: {
+/**
+ * Creates or updates (upserts) a CustomObject.
+ *
+ * - If no existing object → creates (no version in body).
+ * - If existing object → adds `version`, causing CT to treat it as an update.
+ */
+export async function upsertCustomObject<T>(opts: {
   projectKey: string;
   container: string;
-}) => {
+  key: string;
+  value: T;
+}): Promise<CustomObject<T>> {
+  const { projectKey, container, key, value } = opts;
+
+  // 1) try fetch existing to get version
+  let existingVersion: number | undefined;
+  try {
+    const existing = await fetchCustomObject<T>({ projectKey, container, key });
+    existingVersion = existing.version;
+  } catch (err: any) {
+    const status = err.response?.status || err.statusCode;
+    if (status !== 404) {
+      console.error('Unexpected error fetching for upsert:', err);
+      throw err;
+    }
+    // 404 → treat as brand-new create
+  }
+
+  // 2) Build the POST body per CTP API
+  const body: Record<string, any> = { container, key, value };
+  if (existingVersion !== undefined) {
+    body.version = existingVersion;
+  }
+
+  // 3) POST /custom-objects to create or update
   const response = await executeHttpClientRequest(
     async (options) => {
-      const res = await axios(buildApiUrl(`/proxy/ctp/${projectKey}/custom-objects`), {
-        method: 'GET',
-        headers: options.headers,
-        withCredentials: options.credentials === 'include',
-        params: {
-          where: `container="${container}"`,
-          limit: 500,
-        },
-      });
+      const res = await axios.post<CustomObject<T>>(
+        buildApiUrl(`/proxy/ctp/${projectKey}/custom-objects`),
+        body,
+        {
+          headers: options.headers,
+          withCredentials: options.credentials === 'include',
+        }
+      );
+      return {
+        data: res.data,
+        statusCode: res.status,
+        getHeader: (h: string) => res.headers[h],
+      };
+    },
+    { userAgent }
+  );
+  return response;
+}
+
+
+export async function fetchCustomObjectsByContainer<T>(opts: {
+  projectKey: string;
+  container: string;
+}): Promise<CustomObject<T>[]> {
+  const { projectKey, container } = opts;
+
+  // 1️⃣ Fetch via CT proxy
+  const wrapper = await executeHttpClientRequest(
+    async (options) => {
+      const res = await axios.get(
+        buildApiUrl(`/proxy/ctp/${projectKey}/custom-objects`),
+        {
+          headers: options.headers,
+          withCredentials: options.credentials === 'include',
+          params: {
+            where: `container="${container}"`,
+            limit: 500,
+          },
+        }
+      );
       return {
         data: res.data,
         statusCode: res.status,
@@ -91,17 +144,21 @@ export const fetchCustomObjectsByContainer = async ({
     { userAgent }
   );
 
-  const body = response.data;
-  // If MC-proxy returned a bare array, use it directly:
+  // 2️⃣ Unwrap the body
+  const body = wrapper.data;
+
+  // Sometimes proxies return a bare array of objects:
   if (Array.isArray(body)) {
-    return body;
+    return body as CustomObject<T>[];
   }
-  // If we got the normal CTP envelope, unwrap it:
+
+  // Standard CTP list response: { count, total, offset, results: CustomObject<T>[] }
   if (body && Array.isArray((body as any).results)) {
-    return (body as any).results;
+    return (body as any).results as CustomObject<T>[];
   }
+
   console.error('Unexpected list-by-container response', body);
   throw new Error(
     `Unexpected response from list custom-objects: ${JSON.stringify(body)}`
   );
-};
+}
