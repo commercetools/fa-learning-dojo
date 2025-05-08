@@ -21,7 +21,7 @@
   "dependencies": {
     "@apollo/client": "3.7.14",
     "@babel/core": "^7.22.17",
-    "@babel/runtime-corejs3": "^7.22.15",
+    "@babel/runtime-corejs3": "^7.27.1",
     "@commercetools-frontend/actions-global": "23.0.0",
     "@commercetools-frontend/application-components": "^23.2.2",
     "@commercetools-frontend/application-config": "23.0.0",
