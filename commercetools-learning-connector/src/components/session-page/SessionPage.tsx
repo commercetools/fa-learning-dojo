@@ -11,8 +11,7 @@ import sessionsJson from '../../data/sessions.json';
 import { GlobalProgressBar } from '../global-progress-bar/GlobalProgressBar';
 import RichNotesEditor from '../notes-editor/RichNotesEditor';
 import { KeyDecisionsCollapsible } from '../key-decisions/KeyDecisionsCollapsible';
-import { SessionHeader } from './SessionHeader';
-import ResourceCard, { DescriptionBlock } from '../icon-card/ResourceCard';
+import ResourceCard from '../icon-card/ResourceCard';
 
 // — Types ——————————————————————————————————————————————————————
 export type Session = (typeof sessionsJson.sessions)[0];
@@ -243,8 +242,7 @@ const SessionPage: React.FC<{ sessionId: number }> = ({ sessionId }) => {
           </Card>
           <Card insetScale="m">
           <Text.Headline as="h2">Case Exercises</Text.Headline>
-            {current.case_studies.map((cs, idx) => {
-              const orig = session.case_studies.find((c) => c.title === cs.title);
+            {current.case_studies.map((cs) => {
               return (
                 <ResourceCard
                       icon={<ReviewIcon size="30" color="primary" />}

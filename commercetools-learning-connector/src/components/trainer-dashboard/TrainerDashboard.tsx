@@ -30,7 +30,7 @@ const ClaimTrainerAccess: React.FC<{
   isClaiming: boolean;
   onClaim: () => void;
 }> = ({ isClaiming, onClaim }) => (
-  <Spacings.Stack scale="l" alignItems="center" css={{ textAlign: 'center' }}>
+  <Spacings.Stack scale="l" alignItems="center">
     <Text.Headline as="h2">Trainer Dashboard</Text.Headline>
     <Text.Body>Your account does not yet have trainer access.</Text.Body>
     <SecondaryButton
