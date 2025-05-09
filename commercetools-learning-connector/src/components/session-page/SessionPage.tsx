@@ -264,7 +264,7 @@ const SessionPage: React.FC<{ sessionId: number }> = ({ sessionId }) => {
 
       {/* 4️⃣ Notes editor */}
       <Spacings.Stack scale="l">
-        <Text.Headline as="h1">Your Notes</Text.Headline>
+        {/* <Text.Headline as="h1">Your Notes</Text.Headline> */}
         <RichNotesEditor
           value={localNotes}
           onChange={(html) => setLocalNotes(html)}

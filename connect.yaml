@@ -1,5 +1,5 @@
 deployAs:
-  - name: learning-dojo
+  - name: commercetools-learning-connector
     applicationType: merchant-center-custom-application
     configuration:
       standardConfiguration:

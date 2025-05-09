@@ -31,6 +31,7 @@ export const ParticipantsProgressTable: React.FC = () => {
           projectKey,
           container: 'participants-progress',
         });
+        console.log('all ', all)
         const data = all.map((obj) => ({
           participant: obj.key,
           progress: (obj.value as any).participantProgressData as SessionProgress[],
@@ -90,4 +91,4 @@ export const ParticipantsProgressTable: React.FC = () => {
   );
 };
 
-export default ParticipantsProgressTable;
+// export default ParticipantsProgressTable;

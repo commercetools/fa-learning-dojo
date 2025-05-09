@@ -1,5 +1,4 @@
 import { css } from '@emotion/react';
-import { useIntl } from 'react-intl';
 import {
   ArrowsMinimizeIcon,
   ExpandIcon,
@@ -9,10 +8,8 @@ import {
   ProgressBar,
   Spacings,
   Text,
-  Tooltip,
   designTokens,
 } from '@commercetools-frontend/ui-kit';
-import messages from './messages';
 
 type QuickStartGuideHeaderProps = {
   content: string;
@@ -27,7 +24,6 @@ const QuickStartGuideHeader = ({
   onToggle,
   isOpen,
 }: QuickStartGuideHeaderProps) => {
-  const { formatMessage } = useIntl();
   return (
     <div
       css={css`
@@ -87,14 +83,7 @@ const QuickStartGuideHeader = ({
           >
             <ProgressBar progress={progress} isAnimated={false} height="10" />
           </div>
-          <Tooltip
-            title={formatMessage(
-              isOpen
-                ? messages.buttonTooltipCollapse
-                : messages.buttonTooltipExpand
-            )}
-            placement="bottom"
-          >
+          
             <IconButton
               isToggled
               isToggleButton
@@ -103,7 +92,6 @@ const QuickStartGuideHeader = ({
               label="icon-button"
               onClick={onToggle}
             />
-          </Tooltip>
         </Spacings.Inline>
       </div>
     </div>

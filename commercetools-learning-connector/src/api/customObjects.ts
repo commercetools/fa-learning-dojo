@@ -135,20 +135,22 @@ export async function fetchCustomObjectsByContainer<T>(opts: {
           },
         }
       );
+      console.log('dashaboard : ', res)
       return {
-        data: res.data,
+        data: res.data.results,
         statusCode: res.status,
         getHeader: (h: string) => res.headers[h],
       };
     },
     { userAgent }
   );
-
+  console.log('wrapper', wrapper)
   // 2️⃣ Unwrap the body
-  const body = wrapper.data;
+  const body = wrapper;
 
   // Sometimes proxies return a bare array of objects:
   if (Array.isArray(body)) {
+    console.log('body ', body)
     return body as CustomObject<T>[];
   }
 
@@ -160,5 +162,28 @@ export async function fetchCustomObjectsByContainer<T>(opts: {
   console.error('Unexpected list-by-container response', body);
   throw new Error(
     `Unexpected response from list custom-objects: ${JSON.stringify(body)}`
+  );
+}
+
+
+export async function deleteCustomObject(opts: {
+  projectKey: string;
+  container: string;
+  key: string;
+}): Promise<void> {
+  const { projectKey, container, key } = opts;
+  await executeHttpClientRequest(
+    async (options) => {
+      const res = await axios.delete(
+        buildApiUrl(`/proxy/ctp/${projectKey}/custom-objects/${container}/${key}`),
+        { headers: options.headers, withCredentials: options.credentials === 'include' }
+      );
+      return {
+        data: res.data,
+        statusCode: res.status,
+        getHeader: (h: string) => res.headers[h],
+      };
+    },
+    { userAgent }
   );
 }
