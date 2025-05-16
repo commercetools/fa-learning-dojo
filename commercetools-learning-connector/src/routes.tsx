@@ -1,12 +1,7 @@
 import type { ReactNode } from 'react';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import Spacings from '@commercetools-uikit/spacings';
-import Channels from './components/channels';
-import ProductList from './components/product-list/ProductList';
-import LoadTasks from './components/trainer-dashboard/TrainerDashboard';
-import SessionsOverview from './components/sessions-overview/SessionsOverview';
 import SessionPage from './components/session-page/SessionPage';
-import { useParams } from 'react-router-dom';
 import TrainerDashboard from './components/trainer-dashboard/TrainerDashboard';
 
 type ApplicationRoutesProps = {
