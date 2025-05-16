@@ -47,6 +47,36 @@ const config = {
       uriPath: 'session3', 
       defaultLabel: '3 - Advanced Modelling',
       permissions: [PERMISSIONS.Manage],
+    },
+    {
+      uriPath: 'session4', 
+      defaultLabel: '4 - Stores & Channels ',
+      permissions: [PERMISSIONS.Manage],
+    },
+    {
+      uriPath: 'session5', 
+      defaultLabel: '5 - Price Configuration ',
+      permissions: [PERMISSIONS.Manage],
+    },
+    {
+      uriPath: 'session6', 
+      defaultLabel: '6 - Promotions & Discounts ',
+      permissions: [PERMISSIONS.Manage],
+    },
+    {
+      uriPath: 'session7', 
+      defaultLabel: '7 - Shipping & Product Search ',
+      permissions: [PERMISSIONS.Manage],
+    },
+    {
+      uriPath: 'session8', 
+      defaultLabel: '8 - Checkout',
+      permissions: [PERMISSIONS.Manage],
+    },
+    {
+      uriPath: 'session9', 
+      defaultLabel: '9 - Extensions & Customization ',
+      permissions: [PERMISSIONS.Manage],
     }
   ],
 };

@@ -85,7 +85,7 @@ const TrainerDashboard = () => {
         });
         setRows(
           all.map((obj) => ({
-            key: obj.id,
+            key: obj.key,
             progress: (obj.value as any).participantProgressData,
           }))
         );
@@ -144,6 +144,7 @@ const TrainerDashboard = () => {
         }
       `}
     >
+       <Text.Headline as="h1">Trainer Dashboard</Text.Headline>
       {/* Participant table */}
       <table style={{ width: '100%', borderCollapse: 'collapse' }}>
         <thead>

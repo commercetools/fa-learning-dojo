@@ -44,7 +44,6 @@ const ApplicationRoutes = (_props: ApplicationRoutesProps) => {
           <SessionPage sessionId={3} />
         </Route>
 
-{/* 
         <Route path={`${match.path}/session4`}>
           <SessionPage sessionId={4} />
         </Route>
@@ -67,7 +66,8 @@ const ApplicationRoutes = (_props: ApplicationRoutesProps) => {
 
         <Route path={`${match.path}/session9`}>
           <SessionPage sessionId={9} />
-        </Route> */}
+        </Route> 
+        
       </Switch>
     </Spacings.Inset>
   );

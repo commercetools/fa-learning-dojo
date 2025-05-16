@@ -1,7 +1,6 @@
 
 import React from 'react';
 import { SecondaryButton, Spacings, Text } from '@commercetools-frontend/ui-kit';
-
 type Props = {
   onClaim: () => void;
   isClaiming: boolean;

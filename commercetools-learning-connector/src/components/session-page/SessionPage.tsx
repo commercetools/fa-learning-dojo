@@ -1,5 +1,11 @@
 import { css, Global } from '@emotion/react';
-import { designTokens, Grid, SecondaryButton, Card, Text } from '@commercetools-frontend/ui-kit';
+import {
+  designTokens,
+  Grid,
+  SecondaryButton,
+  Card,
+  Text,
+} from '@commercetools-frontend/ui-kit';
 import React, { useEffect, useState } from 'react';
 import { useApplicationContext } from '@commercetools-frontend/application-shell-connectors';
 import { Spacings } from '@commercetools-frontend/ui-kit';
@@ -153,75 +159,79 @@ const SessionPage: React.FC<{ sessionId: number }> = ({ sessionId }) => {
       />
 
       {/* 2️⃣ Session title */}
-      <Text.Headline as="h2">Session {session.id}: {session.title}</Text.Headline>
+      <Text.Headline as="h2">
+        Session {session.id}: {session.title}
+      </Text.Headline>
 
       {/* 3️⃣ Two-column layout */}
       <Grid
         gridTemplateColumns="60% 40%"
         gridColumnGap={designTokens.spacingL}
-        gridRowGap={designTokens.spacingL} 
+        gridRowGap={designTokens.spacingL}
       >
         {/* Left: Key Decisions */}
         <Card insetScale="m">
           <KeyDecisionsCollapsible
             items={current.keyDecisions}
             onSubmit={async (decisionId, idx) => {
-                      const kd = current.keyDecisions.find(
-                        (d) => d.decisionId === decisionId
-                      )!;
-                      kd.status = 'Completed';
-                      kd.selectedOptionIndex = idx;
-                      kd.feedback = kd.options[idx].feedback!;
-            
-                      // strip old block for this decision
-                      current.notes = current.notes
-                        .replace(
-                          new RegExp(
-                            `(<hr/?>)?[\\s\\S]*?Decision ${decisionId}:[\\s\\S]*?<\\/div>`,
-                            'g'
-                          ),
-                          ''
-                        )
-                        .trim();
-            
-                      // append new
-                      const entry = makeNoteEntryHtml(
-                        decisionId,
-                        kd.scenario,
-                        kd.options[idx].text,
-                        kd.feedback
-                      );
-                      current.notes = current.notes
-                        ? `${current.notes}<hr/>${entry}`
-                        : entry;
-            
-                      await persist(progressData);
-                    }}
-                    onReSubmit={async (decisionId) => {
-                      // 1️⃣ Split into blocks by your <hr/> divider
-                      const parts = current.notes.split(/<hr\/?>/);
-            
-                      // 2️⃣ Filter out the one whose text includes “Decision X:”
-                      const filtered = parts
-                        .map((p) => p.trim())
-                        .filter((p) => p && !p.includes(`Decision ${decisionId}:`));
-            
-                      // 3️⃣ Re-join, re-inserting <hr/> between each block
-                      current.notes = filtered
-                        .map((blockHtml, i) => (i > 0 ? `<hr/>${blockHtml}` : blockHtml))
-                        .join('');
-            
-                      // 4️⃣ Reset the decision state
-                      const kd = current.keyDecisions.find(
-                        (d) => d.decisionId === decisionId
-                      )!;
-                      kd.status = 'Not Started';
-                      delete kd.selectedOptionIndex;
-                      delete kd.feedback;
-            
-                      // 5️⃣ Persist it
-                      await persist(progressData);
-                    }}
+              const kd = current.keyDecisions.find(
+                (d) => d.decisionId === decisionId
+              )!;
+              kd.status = 'Completed';
+              kd.selectedOptionIndex = idx;
+              kd.feedback = kd.options[idx].feedback!;
+
+              // strip old block for this decision
+              current.notes = current.notes
+                .replace(
+                  new RegExp(
+                    `(<hr/?>)?[\\s\\S]*?Decision ${decisionId}:[\\s\\S]*?<\\/div>`,
+                    'g'
+                  ),
+                  ''
+                )
+                .trim();
+
+              // append new
+              const entry = makeNoteEntryHtml(
+                decisionId,
+                kd.scenario,
+                kd.options[idx].text,
+                kd.feedback
+              );
+              current.notes = current.notes
+                ? `${current.notes}<hr/>${entry}`
+                : entry;
+
+              await persist(progressData);
+            }}
+            onReSubmit={async (decisionId) => {
+              // 1️⃣ Split into blocks by your <hr/> divider
+              const parts = current.notes.split(/<hr\/?>/);
+
+              // 2️⃣ Filter out the one whose text includes “Decision X:”
+              const filtered = parts
+                .map((p) => p.trim())
+                .filter((p) => p && !p.includes(`Decision ${decisionId}:`));
+
+              // 3️⃣ Re-join, re-inserting <hr/> between each block
+              current.notes = filtered
+                .map((blockHtml, i) =>
+                  i > 0 ? `<hr/>${blockHtml}` : blockHtml
+                )
+                .join('');
+
+              // 4️⃣ Reset the decision state
+              const kd = current.keyDecisions.find(
+                (d) => d.decisionId === decisionId
+              )!;
+              kd.status = 'Not Started';
+              delete kd.selectedOptionIndex;
+              delete kd.feedback;
+
+              // 5️⃣ Persist it
+              await persist(progressData);
+            }}
           />
         </Card>
 
@@ -235,25 +245,25 @@ const SessionPage: React.FC<{ sessionId: number }> = ({ sessionId }) => {
               link={session.quiz}
               status={current.quizStatus}
               onDone={async () => {
-                        current.quizStatus = 'Completed';
-                        await persist(progressData);
-                      }}
+                current.quizStatus = 'Completed';
+                await persist(progressData);
+              }}
             />
           </Card>
           <Card insetScale="m">
-          <Text.Headline as="h2">Case Exercises</Text.Headline>
+            <Text.Headline as="h2">Case Exercises</Text.Headline>
             {current.case_studies.map((cs) => {
               return (
                 <ResourceCard
-                      icon={<ReviewIcon size="30" color="primary" />}
-                      header={session.case_studies[0].title}
-                      link={session.quiz}
-                      status={current.quizStatus}
-                      onDone={async () => {
-                        current.quizStatus = 'Completed';
-                        await persist(progressData);
-                      }}
-                    />
+                  icon={<ReviewIcon size="30" color="primary" />}
+                  header={session.case_studies[0].title}
+                  link={session.quiz}
+                  status={current.quizStatus}
+                  onDone={async () => {
+                    current.quizStatus = 'Completed';
+                    await persist(progressData);
+                  }}
+                />
               );
             })}
           </Card>
@@ -261,13 +271,15 @@ const SessionPage: React.FC<{ sessionId: number }> = ({ sessionId }) => {
       </Grid>
 
       {/* 4️⃣ Notes editor */}
-      <Spacings.Stack scale="l">
+      <Spacings.Stack scale="xs">
         {/* <Text.Headline as="h1">Your Notes</Text.Headline> */}
-        <RichNotesEditor
-          value={localNotes}
-          onChange={(html) => setLocalNotes(html)}
-        />
-        <Spacings.Stack scale="l">
+        <Spacings.Inline scale="xs">
+          <RichNotesEditor
+            value={localNotes}
+            onChange={(html) => setLocalNotes(html)}
+          />
+        </Spacings.Inline>
+
         <Spacings.Inline scale="xs">
           <SecondaryButton
             label="Save Notes"
@@ -280,15 +292,13 @@ const SessionPage: React.FC<{ sessionId: number }> = ({ sessionId }) => {
             }}
           />
         </Spacings.Inline>
-
-        </Spacings.Stack>
-        
       </Spacings.Stack>
 
       {/* some global CSS tweaks */}
       <Global
         styles={css`
           .note-entry {
+            display: block;
             margin-bottom: ${designTokens.spacingL};
             padding: ${designTokens.spacingM};
             border: 1px solid ${designTokens.colorNeutral60};
@@ -301,7 +311,6 @@ const SessionPage: React.FC<{ sessionId: number }> = ({ sessionId }) => {
           }
         `}
       />
-
     </Spacings.Stack>
   );
 };
