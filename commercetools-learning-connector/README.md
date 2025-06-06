@@ -1,16 +1,32 @@
-<p align="center">
-  <a href="https://commercetools.com/">
-    <img alt="commercetools logo" src="https://unpkg.com/@commercetools-frontend/assets/logos/commercetools_primary-logo_horizontal_RGB.png">
-  </a>
-  <b>Custom Application starter template in TypeScript</b>
-</p>
+commercetools Learning Connector – Merchant Center Custom App
 
-This is the [TypeScript](https://www.typescriptlang.org/) version of the starter template to [develop Custom Applications](https://docs.commercetools.com/merchant-center-customizations/custom-applications) for the Merchant Center.
+Overview
+The Learning Connector is a custom Merchant Center application that guides participants through a series of hands-on training sessions. It tracks each learner’s progress (key decisions, quizzes, case studies, notes), and provides a Trainer Dashboard to monitor and reset progress.
 
-# Installing the template
+Pre-requisites
+Before installing and using the app, you’ll need:
 
-Read the [Getting started](https://docs.commercetools.com/merchant-center-customizations/custom-applications) documentation for more information.
+- A Commercetools Project
+- Node.js ≥ 16 and Yarn (or npm) installed locally
 
-# Developing the Custom Application
+Installation Steps
+  - Clone the repository
+    git clone https://github.com/your-org/learning-dojo.git
+  
+  - cd learning-dojo
+  - Install dependencies
+  - yarn install
+  - Configure environment variables
+  - Create a file named .env in the project root with at least:
+      MC_API_URL=https://mc-api.europe-west1.gcp.commercetools.com
+      CT_PROJECT_KEY=<your-project-key>
+  - Build and deploy
 
-Learn more about [developing a Custom Application](https://docs.commercetools.com/merchant-center-customizations/development) and [how to use the CLI](https://docs.commercetools.com/merchant-center-customizations/api-reference/cli).
+Local development:
+  - yarn start
+  - Exposes http://localhost:3000
+
+Production build & deploy:
+
+  - yarn build
+

@@ -257,7 +257,7 @@ const SessionPage: React.FC<{ sessionId: number }> = ({ sessionId }) => {
                 <ResourceCard
                   icon={<ReviewIcon size="30" color="primary" />}
                   header={session.case_studies[0].title}
-                  link={session.quiz}
+                  link={session.case_studies[0].link}
                   status={current.quizStatus}
                   onDone={async () => {
                     current.quizStatus = 'Completed';

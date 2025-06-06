@@ -61,7 +61,7 @@ const ResourceCard: React.FC<ResourceCardProps> = ({
       <div>
         {status === 'Not Started' ? (
           <PrimaryButton
-            label="View"
+            label="View & Complete"
             onClick={(e) => {
               // prevent the Card navigation when clicking the button
               e.stopPropagation();

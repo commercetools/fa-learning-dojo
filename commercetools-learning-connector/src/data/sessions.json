@@ -11,22 +11,27 @@
         {
           "decisionId": 1,
           "title": "Public Beta Features",
-          "scenario": "<b>EcoLiving</b> is launching a new loyalty campaign and wants to leverage commercetools' recently introduced Public Beta feature - <b>Multiple Customer Group Assignment</b>. How should they approach implementing this feature??",
+          "scenario": "<b>Scenario</b>: <b>EcoLiving</b> wants to use a new commercetools feature called <b>Multiple Customer Group Assignment</b> for an upcoming loyalty campaign. This feature is currently in Public Beta. <p>Question: What is generally the most balanced and recommended approach for EcoLiving to start using this Public Beta feature?</p>",
           "options": [
             {
-              "text": "Evaluate Thoroughly in Staging First before production.",
+              "text": "Wait until the feature reaches General Availability (GA) to ensure maximum stability, even if it means delaying the campaign.",
               "isCorrect": false,
-              "feedback": "Evaluating thoroughly seems safe approach, ensures validation, but may delay capturing early competitive advantage. Consider whether your timeline permits extensive pre-production testing and think about gradual production rollout for a quicker market response."
+              "feedback": " While the safest for stability, this often means delaying innovation and the benefits of new features unnecessarily. "
             },
             {
-              "text": "Gradual Production Rollout with Controlled Monitoring",
+              "text": "Thoroughly test the feature in a staging environment, then deploy it fully to production if testing is successful.",
               "isCorrect": true,
-              "feedback": "Yes, Gradual production rollout with controlled monitoring is ideal, balances rapid innovation with careful risk management. Enables agile adjustments based on real-time insights and user feedback.."
+              "feedback": "Staging tests are essential! However, a direct full production launch for a Public Beta feature, even after testing, carries higher risk than a gradual, monitored rollout"
             },
             {
-              "text": "Delay Implementation Until General Availability (GA)",
+              "text": "Start with a gradual rollout to a small segment of production users, monitoring its performance and impact closely before expanding.",
               "isCorrect": false,
-              "feedback": "Although waiting for GA ensures stability, it may slow innovation. A gradual rollout with controlled monitoring typically offers a better balance."
+              "feedback": "Best Option: This approach smartly balances benefiting from new features early with managing risk. A gradual rollout limits potential issues, provides crucial real-user feedback for the beta feature, and allows for quick adjustments before a full launch."
+            },
+            {
+              "text": "Implement it directly and quickly into production to be the first to market with the new loyalty campaign",
+              "isCorrect": false,
+              "feedback": "This is generally too risky for Public Beta software and could cause significant problems for your users and business"
             }
           ],
           "status": "Not Started"
@@ -42,9 +47,9 @@
               "feedback": "Correct. Officially raising the limit aligns with best practices and ensures scalability without complicating your data structure."
             },
             {
-              "text": "Reorganize into subcategories or adjust product attributes.",
+              "text": "Reorganize your subcategories to reduce the number of nodes.",
               "isCorrect": false,
-              "feedback": "While reorganizing categories keeping them within the limits, and might temporarily ease the strain, it doesn't actually expand capacity and may overcomplicate your structure."
+              "feedback": "While reorganizing categories may temporarily ease the strain, it doesn’t actually expand capacity and may overcomplicate your solution"
             },
             {
               "text": "Use custom fields to simulate extra categories.",
@@ -231,7 +236,7 @@
         {
           "decisionId": 7,
           "title": "Dynamic Recommendations Strategy",
-          "scenario": "<b>EcoLiving</b> plans dynamic recommendations between products like 'Edgar Armchair' and 'Silky Pillow Cover'. Which strategy do you prefer?",
+          "scenario": "Scenario: <b>EcoLiving</b> plans to include dynamic recommendations between products like <b>Art Deco Coffee Table</b> which goes well with <b>Art Deco Chair<b>. Which strategy should they use?",
           "options": [
             {
               "text": "<b>Product Reference Attributes:</b> Direct, explicit links for curation.",
@@ -277,10 +282,10 @@
         {
           "decisionId": 9,
           "title": "Product Bundling",
-          "scenario": "<b>EcoLiving</b> offers multiple products bundled with discounted prices to boost sales, but bundling isn’t natively supported. How should these be modeled?",
+          "scenario": "Scenario: <b>EcoLiving<b> offers multiple product bundles with discounted prices to boost sales, but bundling isn’t natively supported. How should these be modeled?",
           "options": [
             {
-              "text": "<b>Use Reference Attributes</b>: Link items via reference attributes.",
+              "text": "<b>Use Reference Attributes<b>: Create a “bundle” product type that can link items via reference attributes.",
               "isCorrect": true,
               "feedback": "Correct. This method provides flexible, scalable linking between products. Consider this approach as the best option."
             },
@@ -688,12 +693,12 @@
         {
           "decisionId": 20,
           "title": "Best Practices on Cart Discounts",
-          "scenario": "<b>EcoLiving</b> wishes to run a seamless promotion without requiring discount codes. Based on commercetools best practices, which approach should they adopt?",
+          "scenario": "Scenario: <b>EcoLiving</b> wishes to run a seamless promotion without requiring discount codes to customers whose carts or profiles meet specific conditions. Based on commercetools best practices, which approach should they adopt?",
           "options": [
             {
               "text": "<b>Auto-Applied Cart Discount:</b> Configure a cart discount that applies automatically based on cart conditions.",
               "isCorrect": true,
-              "feedback": "Correct. Auto-applied cart discounts provide a smooth customer experience without the need for codes, <b>CAUTION</b> only 100 such discounts can be defined only per project / store. Consider this best practice for a frictionless promotion."
+              "feedback": "Correct. Auto-applied cart discounts provide a smooth customer experience without the need for codes, <b>CAUTION</b> only 100 such discounts can be defined only per project / store."
             },
             {
               "text": "<b>Code-based Cart Discount:</b> Require a discount code to trigger the cart discount.",
@@ -775,7 +780,7 @@
               "feedback": "Not ideal. While this can work, it increases the complexity of cart calculations. Reflect on how direct predicate validation simplifies the logic."
             },
             {
-              "text": "<b>Create New Shipping Method:</b> Build a separate shipping method for heavy furniture and add it to the cart as a customShipping.",
+              "text": "<b>Create New Shipping Method:</b> Build a separate shipping method for heavy furniture and add it to the cart as a custom shipping method.",
               "isCorrect": false,
               "feedback": "This approach introduces extra development overhead and may lead to inconsistencies. Think about the benefits of predicate-based eligibility for streamlined management."
             }
@@ -819,11 +824,6 @@
               "text": "<b>Comprehensive Attribute Indexing:</b> Index all searchable attributes for maximum customer flexibility.",
               "isCorrect": false,
               "feedback": "Not optimal. While comprehensive indexing offers versatility, it may degrade performance. Reflect on the trade-offs between breadth and speed."
-            },
-            {
-              "text": "<b>Tiered Attribute Indexing:</b> Fully index primary attributes and index secondary attributes dynamically as needed.",
-              "isCorrect": false,
-              "feedback": "This approach adds dynamic complexity. Think about the benefits of focusing on a limited set of high-frequency attributes to ensure robust performance."
             }
           ],
           "status": "Not Started"
@@ -831,20 +831,20 @@
         {
           "decisionId": 24,
           "title": "Storefront Search",
-          "scenario": "<b>EcoLiving</b> needs an efficient and faceted product listing for its online storefront. Which method should be used for product discovery and listing on storefront pages?",
+          "scenario": "<b>EcoLiving</b> needs an efficient and faceted product listing for its online storefront. Which method should be used for product discovery and listing on storefront pages based on various search terms that customers input?",
           "options": [
             {
-              "text": "<b>Product Search:</b> Optimized for discovery with full‐text search, prefixes, wildcards, and faceting for multi‐facet navigation.",
+              "text": "<b>Product Search API:</b> Optimized for discovery with full‐text search, prefixes, wildcards, and faceting for multi‐facet navigation.",
               "isCorrect": true,
               "feedback": "Correct. Product Search is built for storefronts, offering fast, flexible queries and faceting—despite some indexing delay. This is the ideal approach for high-performance product listings."
             },
             {
-              "text": "<b>Product Projections Query:</b> Directly queries the product database for current or staged data.",
+              "text": "<b>Product Projections API:</b> Directly queries products with current or staged data.",
               "isCorrect": false,
               "feedback": "Not ideal. Although it can provide more current/staged data, it’s slower and not optimized for storefront performance. Think about how Product Search is designed for fast product discovery."
             },
             {
-              "text": "<b>Product Query:</b> Retrieves full product representations for both current and staged states.",
+              "text": "<b>Product API:</b> Retrieves full product representations for both current and staged states.",
               "isCorrect": false,
               "feedback": "Not recommended. This method returns too much data and is designed for management tasks rather than efficient storefront product listing."
             }
@@ -1102,7 +1102,7 @@
           "title": "State Machine Guide",
           "link": "https://docs.commercetools.com/state-machines"
         },
-        {
+        { 
           "title": "API Extensions Guide",
           "link": "https://docs.commercetools.com/api/extensions"
         },
