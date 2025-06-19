@@ -83,7 +83,7 @@
           "status": "Not Started"
         }
       ],
-      "quiz": "https://learn.commercetools.com/mod/quiz/view.php?id=1571",
+      "quiz": "https://learn.commercetools.com/mod/quiz/view.php?id=1384",
       "case_studies": [],
       "recommendations": [
         {
@@ -130,7 +130,7 @@
               "feedback": "Although separate products might boost SEO, they lead to redundancy and complicate inventory management. Consider using product variants for a cohesive strategy if it stays withing the limits."
             },
             {
-              "text": "<b>Hybrid Approach</b>: Create Variants by color in one product and create another separat product with variants by material to optimize discoverability.",
+              "text": "<b>Hybrid Approach</b>: Create Variants by color in one product and create another separate product with variants by material to optimize discoverability.",
               "isCorrect": false,
               "feedback": "Could be overcomplicated: While hybrid strategies sound flexible, they might add unnecessary complexity. A unified product variant approach is usually recommended within the limits or consider creating separate products"
             }
@@ -190,11 +190,11 @@
           "status": "Not Started"
         }
       ],
-      "quiz": "https://learn.commercetools.com/mod/quiz/view.php?id=1572",
+      "quiz": "https://learn.commercetools.com/mod/quiz/view.php?id=1386",
       "case_studies": [
         {
           "title": "Case 1: Product Configuration",
-          "link": "https://learn.commercetools.com/mod/resource/view.php?id=1580",
+          "link": "https://learn.commercetools.com/mod/resource/view.php?id=756",
           "description": [
             {
               "type": "paragraph",
@@ -303,11 +303,11 @@
           "status": "Not Started"
         }
       ],
-      "quiz": "https://learn.commercetools.com/mod/quiz/view.php?id=1573",
+      "quiz": "https://learn.commercetools.com/mod/quiz/view.php?id=1388",
       "case_studies": [
         {
           "title": "Case 2: Advanced Product Modeling",
-          "link": "https://learn.commercetools.com/mod/resource/view.php?id=1581",
+          "link": "https://learn.commercetools.com/mod/resource/view.php?id=793",
           "description": [
             {
               "type": "paragraph",
@@ -454,11 +454,11 @@
           "status": "Not Started"
         }
       ],
-      "quiz": "https://learn.commercetools.com/mod/quiz/view.php?id=1574",
+      "quiz": "https://learn.commercetools.com/mod/quiz/view.php?id=1390",
       "case_studies": [
         {
           "title": "Case 3: Multi-Region Expansion",
-          "link": "https://learn.commercetools.com/mod/resource/view.php?id=1582",
+          "link": "https://learn.commercetools.com/mod/resource/view.php?id=1612",
           "description": [
             {
               "type": "paragraph",
@@ -597,11 +597,11 @@
           "status": "Not Started"
         }
       ],
-      "quiz": "https://learn.commercetools.com/mod/quiz/view.php?id=XXXX",
+      "quiz": "https://learn.commercetools.com/mod/quiz/view.php?id=1392",
       "case_studies": [
         {
           "title": "Case 4: Pricing Strategy",
-          "link": "https://learn.commercetools.com/mod/resource/view.php?id=1583",
+          "link": "https://learn.commercetools.com/mod/resource/view.php?id=847",
           "description": [
             {
               "type": "paragraph",
@@ -714,11 +714,11 @@
           "status": "Not Started"
         }
       ],
-      "quiz": "https://learn.commercetools.com/mod/quiz/view.php?id=XXXX",
+      "quiz": "https://learn.commercetools.com/mod/quiz/view.php?id=1394",
       "case_studies": [
         {
           "title": "Case 5: Promotions and Discounts",
-          "link": "https://learn.commercetools.com/mod/resource/view.php?id=1584",
+          "link": "https://learn.commercetools.com/mod/resource/view.php?id=848",
           "description": [
             {
               "type": "paragraph",
@@ -853,11 +853,11 @@
         }
         
       ],
-      "quiz": "https://learn.commercetools.com/mod/quiz/view.php?id=XXXX",
+      "quiz": "https://learn.commercetools.com/mod/quiz/view.php?id=1396",
       "case_studies": [
         {
           "title": "Case 6: Shipping Modelling",
-          "link": "https://learn.commercetools.com/mod/resource/view.php?id=1585",
+          "link": "https://learn.commercetools.com/mod/resource/view.php?id=768",
           "description": [
             {
               "type": "paragraph",
@@ -977,7 +977,7 @@
           "status": "Not Started"
         }
       ],
-      "quiz": "https://learn.commercetools.com/mod/quiz/view.php?id=YYYY",
+      "quiz": "https://learn.commercetools.com/mod/quiz/view.php?id=1398",
       "case_studies": [],
       "recommendations": [
         {
@@ -1082,7 +1082,7 @@
               "feedback": "Custom integrations require significant effort and ongoing maintenance. Consider turnkey solutions first."
             },
             {
-              "text": "Use<b>commercetools Connect</b> - Install and configure a pre‑built connector for OMS integration without needing to worry about development, deployment and monitoring.",
+              "text": "Use <b>commercetools Connect</b> - Install and configure a pre‑built connector for OMS integration without needing to worry about development, deployment and monitoring.",
               "isCorrect": true,
               "feedback": "Correct. Connect offers a tested/certified, maintainable connector that streamlines integration with minimal development overhead."
             },
@@ -1095,7 +1095,7 @@
           "status": "Not Started"
         }
       ],
-      "quiz": "https://learn.commercetools.com/mod/quiz/view.php?id=xxxx",
+      "quiz": "https://learn.commercetools.com/mod/quiz/view.php?id=1400",
       "case_studies": [],
       "recommendations": [
         {

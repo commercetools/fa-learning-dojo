@@ -258,9 +258,9 @@ const SessionPage: React.FC<{ sessionId: number }> = ({ sessionId }) => {
                   icon={<ReviewIcon size="30" color="primary" />}
                   header={session.case_studies[0].title}
                   link={session.case_studies[0].link}
-                  status={current.quizStatus}
+                  status={current.case_studies[0].status}
                   onDone={async () => {
-                    current.quizStatus = 'Completed';
+                    current.case_studies[0].status = 'Completed';
                     await persist(progressData);
                   }}
                 />
