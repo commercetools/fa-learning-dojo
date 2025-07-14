@@ -1,0 +1,520 @@
+google-22: Pulling from buildpacks/builder
+Digest: sha256:ae835baac2946b6251f38d41a538809b2f3b866600ebebed67783102811b89ee
+Status: Image is up to date for gcr.io/buildpacks/builder:google-22
+latest: Pulling from buildpacks/google-22/run
+Digest: sha256:8fcb8c1e59e084c4f0fda3c479c842e9309fc6604c8517164cc759db9bc9879a
+Status: Image is up to date for gcr.io/buildpacks/google-22/run:latest
+===> ANALYZING
+Image with name "my-new-custom-application-project_commercetools-learning-connector" not found
+===> DETECTING
+target distro name/version labels not found, reading /etc/os-release file
+======== Output: google.dotnet.sdk@0.9.1 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.dotnet.functions-framework@0.0.1 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.dotnet.publish@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.dotnet.runtime@0.9.1 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.config.entrypoint@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.utils.label-image@0.0.2 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Results ========
+pass: mc-app-override-scripts@0.0.1
+err:  google.dotnet.sdk@0.9.1
+err:  google.dotnet.functions-framework@0.0.1
+err:  google.dotnet.publish@0.9.0
+err:  google.dotnet.runtime@0.9.1
+err:  google.config.entrypoint@0.9.0
+err:  google.utils.label-image@0.0.2
+skip: maven-test-entrypoint@0.0.1
+pass: node-test-entrypoint@0.0.1
+======== Output: google.dotnet.runtime@0.9.1 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.config.entrypoint@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.utils.label-image@0.0.2 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Results ========
+pass: mc-app-override-scripts@0.0.1
+err:  google.dotnet.runtime@0.9.1
+err:  google.config.entrypoint@0.9.0
+err:  google.utils.label-image@0.0.2
+skip: maven-test-entrypoint@0.0.1
+pass: node-test-entrypoint@0.0.1
+======== Output: google.dart.sdk@1.0.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.dart.pub@0.1.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.dart.compile@1.0.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Results ========
+pass: mc-app-override-scripts@0.0.1
+err:  google.dart.sdk@1.0.0
+err:  google.dart.pub@0.1.0
+err:  google.dart.compile@1.0.0
+skip: maven-test-entrypoint@0.0.1
+pass: node-test-entrypoint@0.0.1
+======== Output: google.go.runtime@0.9.1 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.go.functions-framework@0.9.4 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.go.build@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.config.entrypoint@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.go.clear-source@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.utils.label-image@0.0.2 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Results ========
+pass: mc-app-override-scripts@0.0.1
+err:  google.go.runtime@0.9.1
+err:  google.go.functions-framework@0.9.4
+err:  google.go.build@0.9.0
+err:  google.config.entrypoint@0.9.0
+err:  google.go.clear-source@0.9.0
+err:  google.utils.label-image@0.0.2
+skip: maven-test-entrypoint@0.0.1
+pass: node-test-entrypoint@0.0.1
+======== Output: google.go.runtime@0.9.1 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.go.gomod@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.go.build@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.config.entrypoint@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.go.clear-source@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.utils.label-image@0.0.2 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Results ========
+pass: mc-app-override-scripts@0.0.1
+err:  google.go.runtime@0.9.1
+err:  google.go.gomod@0.9.0
+err:  google.go.build@0.9.0
+err:  google.config.entrypoint@0.9.0
+err:  google.go.clear-source@0.9.0
+err:  google.utils.label-image@0.0.2
+skip: maven-test-entrypoint@0.0.1
+pass: node-test-entrypoint@0.0.1
+======== Output: google.go.runtime@0.9.1 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.go.gopath@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.go.build@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.config.entrypoint@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.go.clear-source@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.utils.label-image@0.0.2 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Results ========
+pass: mc-app-override-scripts@0.0.1
+err:  google.go.runtime@0.9.1
+err:  google.go.gopath@0.9.0
+err:  google.go.build@0.9.0
+err:  google.config.entrypoint@0.9.0
+err:  google.go.clear-source@0.9.0
+err:  google.utils.label-image@0.0.2
+skip: maven-test-entrypoint@0.0.1
+pass: node-test-entrypoint@0.0.1
+======== Output: google.java.graalvm@0.1.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.java.maven@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.java.functions-framework@1.1.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.java.native-image@0.1.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.config.entrypoint@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.java.clear-source@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.utils.label-image@0.0.2 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Results ========
+pass: mc-app-override-scripts@0.0.1
+err:  google.java.graalvm@0.1.0
+err:  google.java.maven@0.9.0
+err:  google.java.functions-framework@1.1.0
+err:  google.java.native-image@0.1.0
+err:  google.config.entrypoint@0.9.0
+err:  google.java.clear-source@0.9.0
+err:  google.utils.label-image@0.0.2
+skip: maven-test-entrypoint@0.0.1
+pass: node-test-entrypoint@0.0.1
+======== Output: google.java.runtime@0.9.2 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.java.maven@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.java.functions-framework@1.1.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.java.clear-source@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.utils.label-image@0.0.2 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Results ========
+pass: mc-app-override-scripts@0.0.1
+err:  google.java.runtime@0.9.2
+err:  google.java.maven@0.9.0
+err:  google.java.functions-framework@1.1.0
+err:  google.java.clear-source@0.9.0
+err:  google.utils.label-image@0.0.2
+skip: maven-test-entrypoint@0.0.1
+pass: node-test-entrypoint@0.0.1
+======== Output: google.java.runtime@0.9.2 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.java.gradle@0.10.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.java.functions-framework@1.1.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.java.clear-source@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.utils.label-image@0.0.2 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Results ========
+pass: mc-app-override-scripts@0.0.1
+err:  google.java.runtime@0.9.2
+err:  google.java.gradle@0.10.0
+err:  google.java.functions-framework@1.1.0
+err:  google.java.clear-source@0.9.0
+err:  google.utils.label-image@0.0.2
+skip: maven-test-entrypoint@0.0.1
+pass: node-test-entrypoint@0.0.1
+======== Output: google.java.runtime@0.9.2 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.java.exploded-jar@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.utils.label-image@0.0.2 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Results ========
+pass: mc-app-override-scripts@0.0.1
+err:  google.java.runtime@0.9.2
+err:  google.java.exploded-jar@0.9.0
+err:  google.utils.label-image@0.0.2
+skip: maven-test-entrypoint@0.0.1
+pass: node-test-entrypoint@0.0.1
+======== Output: google.java.runtime@0.9.2 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.java.maven@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.config.entrypoint@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.java.clear-source@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.utils.label-image@0.0.2 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Results ========
+pass: mc-app-override-scripts@0.0.1
+err:  google.java.runtime@0.9.2
+err:  google.java.maven@0.9.0
+err:  google.config.entrypoint@0.9.0
+err:  google.java.clear-source@0.9.0
+err:  google.utils.label-image@0.0.2
+skip: maven-test-entrypoint@0.0.1
+pass: node-test-entrypoint@0.0.1
+======== Output: google.java.runtime@0.9.2 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.java.maven@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.java.entrypoint@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.java.clear-source@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.utils.label-image@0.0.2 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Results ========
+pass: mc-app-override-scripts@0.0.1
+err:  google.java.runtime@0.9.2
+err:  google.java.maven@0.9.0
+err:  google.java.entrypoint@0.9.0
+err:  google.java.clear-source@0.9.0
+err:  google.utils.label-image@0.0.2
+skip: maven-test-entrypoint@0.0.1
+pass: node-test-entrypoint@0.0.1
+======== Output: google.java.runtime@0.9.2 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.java.gradle@0.10.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.config.entrypoint@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.java.clear-source@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.utils.label-image@0.0.2 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Results ========
+pass: mc-app-override-scripts@0.0.1
+err:  google.java.runtime@0.9.2
+err:  google.java.gradle@0.10.0
+err:  google.config.entrypoint@0.9.0
+err:  google.java.clear-source@0.9.0
+err:  google.utils.label-image@0.0.2
+skip: maven-test-entrypoint@0.0.1
+pass: node-test-entrypoint@0.0.1
+======== Output: google.java.runtime@0.9.2 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.java.gradle@0.10.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.java.entrypoint@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.java.clear-source@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.utils.label-image@0.0.2 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Results ========
+pass: mc-app-override-scripts@0.0.1
+err:  google.java.runtime@0.9.2
+err:  google.java.gradle@0.10.0
+err:  google.java.entrypoint@0.9.0
+err:  google.java.clear-source@0.9.0
+err:  google.utils.label-image@0.0.2
+skip: maven-test-entrypoint@0.0.1
+pass: node-test-entrypoint@0.0.1
+======== Output: google.config.flex@0.9.1 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.python.runtime@0.9.1 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.python.pip@0.9.2 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.python.webserver@0.9.1 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.config.entrypoint@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.utils.label-image@0.0.2 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Results ========
+pass: mc-app-override-scripts@0.0.1
+err:  google.config.flex@0.9.1
+err:  google.python.runtime@0.9.1
+err:  google.python.pip@0.9.2
+err:  google.python.webserver@0.9.1
+err:  google.config.entrypoint@0.9.0
+err:  google.utils.label-image@0.0.2
+skip: maven-test-entrypoint@0.0.1
+pass: node-test-entrypoint@0.0.1
+======== Output: google.python.runtime@0.9.1 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.python.functions-framework@0.9.6 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.python.pip@0.9.2 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.config.entrypoint@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.utils.label-image@0.0.2 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Results ========
+pass: mc-app-override-scripts@0.0.1
+err:  google.python.runtime@0.9.1
+err:  google.python.functions-framework@0.9.6
+err:  google.python.pip@0.9.2
+err:  google.config.entrypoint@0.9.0
+err:  google.utils.label-image@0.0.2
+skip: maven-test-entrypoint@0.0.1
+pass: node-test-entrypoint@0.0.1
+======== Output: google.python.runtime@0.9.1 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.python.pip@0.9.2 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.config.entrypoint@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.utils.label-image@0.0.2 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Results ========
+pass: mc-app-override-scripts@0.0.1
+err:  google.python.runtime@0.9.1
+err:  google.python.pip@0.9.2
+err:  google.config.entrypoint@0.9.0
+err:  google.utils.label-image@0.0.2
+skip: maven-test-entrypoint@0.0.1
+pass: node-test-entrypoint@0.0.1
+======== Output: google.ruby.runtime@0.0.1 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.ruby.rubygems@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.ruby.bundle@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.nodejs.runtime@1.0.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.ruby.rails@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.config.entrypoint@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.utils.label-image@0.0.2 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Results ========
+pass: mc-app-override-scripts@0.0.1
+err:  google.ruby.runtime@0.0.1
+err:  google.ruby.rubygems@0.9.0
+err:  google.ruby.bundle@0.9.0
+err:  google.nodejs.runtime@1.0.0
+err:  google.ruby.rails@0.9.0
+err:  google.config.entrypoint@0.9.0
+err:  google.utils.label-image@0.0.2
+skip: maven-test-entrypoint@0.0.1
+pass: node-test-entrypoint@0.0.1
+======== Output: google.ruby.runtime@0.0.1 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.utils.archive-source@0.0.1 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.ruby.bundle@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.ruby.functions-framework@0.9.1 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.utils.label-image@0.0.2 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Results ========
+pass: mc-app-override-scripts@0.0.1
+err:  google.ruby.runtime@0.0.1
+err:  google.utils.archive-source@0.0.1
+err:  google.ruby.bundle@0.9.0
+err:  google.ruby.functions-framework@0.9.1
+err:  google.utils.label-image@0.0.2
+skip: maven-test-entrypoint@0.0.1
+pass: node-test-entrypoint@0.0.1
+======== Output: google.php.runtime@0.0.2 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.utils.nginx@0.0.1 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.php.composer-install@0.0.1 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.php.composer-gcp-build@0.9.1 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.php.composer@0.9.1 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.utils.label-image@0.0.2 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.config.entrypoint@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.php.webconfig@0.0.1 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Results ========
+pass: mc-app-override-scripts@0.0.1
+err:  google.php.runtime@0.0.2
+err:  google.utils.nginx@0.0.1
+err:  google.php.composer-install@0.0.1
+err:  google.php.composer-gcp-build@0.9.1
+err:  google.php.composer@0.9.1
+err:  google.utils.label-image@0.0.2
+err:  google.config.entrypoint@0.9.0
+err:  google.php.webconfig@0.0.1
+skip: maven-test-entrypoint@0.0.1
+pass: node-test-entrypoint@0.0.1
+======== Output: google.nodejs.runtime@1.0.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.nodejs.yarn@2.1.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.nodejs.functions-framework@0.9.4 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.config.entrypoint@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.utils.label-image@0.0.2 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Results ========
+pass: mc-app-override-scripts@0.0.1
+err:  google.nodejs.runtime@1.0.0
+err:  google.nodejs.yarn@2.1.0
+err:  google.nodejs.functions-framework@0.9.4
+err:  google.config.entrypoint@0.9.0
+err:  google.utils.label-image@0.0.2
+skip: maven-test-entrypoint@0.0.1
+pass: node-test-entrypoint@0.0.1
+======== Output: google.nodejs.runtime@1.0.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.nodejs.pnpm@0.1.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.nodejs.functions-framework@0.9.4 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.config.entrypoint@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.utils.label-image@0.0.2 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Results ========
+pass: mc-app-override-scripts@0.0.1
+err:  google.nodejs.runtime@1.0.0
+err:  google.nodejs.pnpm@0.1.0
+err:  google.nodejs.functions-framework@0.9.4
+err:  google.config.entrypoint@0.9.0
+err:  google.utils.label-image@0.0.2
+skip: maven-test-entrypoint@0.0.1
+pass: node-test-entrypoint@0.0.1
+======== Output: google.nodejs.runtime@1.0.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.nodejs.npm@1.1.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.nodejs.functions-framework@0.9.4 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.config.entrypoint@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.utils.label-image@0.0.2 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Results ========
+pass: mc-app-override-scripts@0.0.1
+err:  google.nodejs.runtime@1.0.0
+err:  google.nodejs.npm@1.1.0
+err:  google.nodejs.functions-framework@0.9.4
+err:  google.config.entrypoint@0.9.0
+err:  google.utils.label-image@0.0.2
+skip: maven-test-entrypoint@0.0.1
+pass: node-test-entrypoint@0.0.1
+======== Output: google.nodejs.runtime@1.0.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.nodejs.functions-framework@0.9.4 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.config.entrypoint@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.utils.label-image@0.0.2 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Results ========
+pass: mc-app-override-scripts@0.0.1
+err:  google.nodejs.runtime@1.0.0
+err:  google.nodejs.functions-framework@0.9.4
+err:  google.config.entrypoint@0.9.0
+err:  google.utils.label-image@0.0.2
+skip: maven-test-entrypoint@0.0.1
+pass: node-test-entrypoint@0.0.1
+======== Output: google.nodejs.runtime@1.0.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.config.entrypoint@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.utils.label-image@0.0.2 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Results ========
+pass: mc-app-override-scripts@0.0.1
+err:  google.nodejs.runtime@1.0.0
+err:  google.config.entrypoint@0.9.0
+err:  google.utils.label-image@0.0.2
+skip: maven-test-entrypoint@0.0.1
+pass: node-test-entrypoint@0.0.1
+======== Output: google.python.runtime@0.9.1 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.python.webserver@0.9.1 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.python.pip@0.9.2 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.python.missing-entrypoint@0.9.0 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Output: google.utils.label-image@0.0.2 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Results ========
+pass: mc-app-override-scripts@0.0.1
+err:  google.python.runtime@0.9.1
+err:  google.python.webserver@0.9.1
+err:  google.python.pip@0.9.2
+err:  google.python.missing-entrypoint@0.9.0
+err:  google.utils.label-image@0.0.2
+skip: maven-test-entrypoint@0.0.1
+pass: node-test-entrypoint@0.0.1
+======== Output: google.ruby.missing-entrypoint@0.0.1 ========
+qemu: uncaught target signal 4 (Illegal instruction) - core dumped
+======== Results ========
+pass: mc-app-override-scripts@0.0.1
+err:  google.ruby.missing-entrypoint@0.0.1
+skip: maven-test-entrypoint@0.0.1
+pass: node-test-entrypoint@0.0.1
+ERROR: No buildpack groups passed detection.
+ERROR: failed to detect: buildpack(s) failed with err
+ERROR: failed to build: executing lifecycle: failed with status code: 21

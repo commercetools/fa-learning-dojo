@@ -9,7 +9,7 @@ const config = {
   cloudIdentifier: 'gcp-eu',
   env: {
     development: {
-      initialProjectKey: 'ecoliving-home-lifestyle-dryrun-0424',
+      initialProjectKey: '0610-ecoliving-home-and-lifestyle',
     },
     production: {
       applicationId: '${env:CUSTOM_APPLICATION_ID}',
