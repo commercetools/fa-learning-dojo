@@ -90,9 +90,23 @@ const Welcome = () => {
             gridAutoColumns="1fr"
             gridTemplateColumns="repeat(3, 1fr)"
           >
-           
-           
-            
+            <InfoCard
+              title={intl.formatMessage(messages.cardDocumentationTitle)}
+              content={intl.formatMessage(messages.cardDocumentationContent)}
+              linkTo="https://docs.commercetools.com/merchant-center-customizations/custom-applications"
+              isExternal
+            />
+            <InfoCard
+              title={intl.formatMessage(messages.cardDesignSystemTitle)}
+              content={intl.formatMessage(messages.cardDesignSystemContent)}
+              linkTo="https://uikit.commercetools.com"
+              isExternal
+            />
+            <InfoCard
+              title={intl.formatMessage(messages.cardChannelsTitle)}
+              content={intl.formatMessage(messages.cardChannelsContent)}
+              linkTo={`${match.url}/channels`}
+            />
           </Grid>
         </Spacings.Stack>
       </Spacings.Stack>
