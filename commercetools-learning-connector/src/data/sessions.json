@@ -54,7 +54,7 @@
             {
               "text": "Use custom fields to simulate extra categories.",
               "isCorrect": false,
-              "feedback": "Using custom frields could be a workaround at best; but it doesn’t truly increase the limit. Pursuing an official limit increase is advisable."
+              "feedback": "Using custom fields could be a workaround at best; but it doesn’t truly increase the limit. Pursuing an official limit increase is advisable."
             }
           ],
           "status": "Not Started"
@@ -134,7 +134,7 @@
             {
               "text": "<b>Separate Products</b>: Create standalone products for clear individual SEO and marketing.",
               "isCorrect": false,
-              "feedback": "Although separate products might boost SEO, they lead to redundancy and complicate inventory management. Consider using product variants for a cohesive strategy if it stays withing the limits."
+              "feedback": "Although separate products might boost SEO, they lead to redundancy and complicate  product maintenance. Consider using product variants for a cohesive strategy if it stays withing the limits."
             },
             {
               "text": "<b>Hybrid Approach</b>: Create Variants by color in one product and create another separate product with variants by material to optimize discoverability.",
@@ -171,27 +171,22 @@
         {
           "decisionId": 6,
           "title": "Choosing the Correct Identifier",
-          "scenario": "EcoLiving must decide which identifier to use for stable integrations and efficient querying.",
+          "scenario": "<b>Scenario</b>: <b>EcoLiving</b> is going to launch a configurable sofa set with attributes such as..<p>Leather type: Faux, Full-grain, Top-grain</p> <p>Size: Loveseat, Sectional, Modular</p><p>Features Collection: Reclining, Sleeper etc</p>",
           "options": [
             {
-              "text": "Use <b>ID</b>s which are automatically generated for each resource",
+              "text": "Use Enum for Leather Type, LocalizedText for Size, and Enum for Features collection",
               "isCorrect": false,
-              "feedback": "Avoid this: System-generated IDs are not designed for external integrations. Rely on them only for internal tracking."
+              "feedback": "Incorrect: Size should be an Enum Type, using LocalizedText doesn’t sound right."
             },
             {
-              "text": "Use <b>Key</b> to have meaningful, readable to have stable code integrations.",
+              "text": "Use Enum for Leather Type and Size, and Set of Enums for Features collection",
               "isCorrect": true,
-              "feedback": "Correct: The key is the recommended identifier for stable external references and integrations due to its clarity and adaptability."
+              "feedback": "Correct: Enum type for Leather type and Size while using Set of Enums to allow selection of multiple optional features is a perfect solution in this case."
             },
             {
-              "text": "Use <b>SKU</b>",
+              "text": "Use Text for all attributes",
               "isCorrect": false,
-              "feedback": "Not the best choice: While SKU is vital for stock management, it isn’t suited as a primary code reference. Use it only for inventory purposes."
-            },
-            {
-              "text": "Use <b>Slug</b> to have SEO-friendly URLs and SEO",
-              "isCorrect": false,
-              "feedback": "Not ideal: Slugs are perfect for user-friendly URLs for products / categories only, not for stable integration."
+              "feedback": "Incorrect: Text will not be ideal considering validation and consistency"
             }
           ],
           "status": "Not Started"
@@ -254,14 +249,14 @@
           "scenario": "Scenario: <b>EcoLiving</b> plans to include dynamic recommendations between products like <b>Art Deco Coffee Table</b> which goes well with <b>Art Deco Chair<b>. Which strategy should they use?",
           "options": [
             {
-              "text": "<b>Product Reference Attributes:</b> Direct, explicit links for curation.",
+              "text": "<b>Reference Type Attributes:</b> Direct, explicit links for curation.",
               "isCorrect": true,
               "feedback": "Correct. This approach ensures precise, manual curation. Consider this optimal method for reliable recommendations."
             },
             {
-              "text": "<b>Attribute-based Lookup:</b> Store the recommended SKU/ID in a product attribute and fetch via API.",
+              "text": "Enum Type Attributes: Store the SKUs/IDs of recommended products in a product attribute and fetch  them via the API. ",
               "isCorrect": false,
-              "feedback": "Not ideal. Think about how explicit linking minimizes extra API calls and inconsistency. Consider the recommended reference attributes instead."
+              "feedback": "Not ideal. Think about how explicit linking minimizes extra API calls and inconsistency. Consider using the reference type attributes instead."
             },
             {
               "text": "<b>Category Matching:</b> Use same-category filtering for dynamic recommendations.",
